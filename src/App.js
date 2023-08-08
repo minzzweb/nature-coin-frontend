@@ -20,7 +20,6 @@ function App() {
         <Route path="/image/create" element={<ImageRegisterContainer />} />
         <Route path="/image/modify" element={<ImageModifyContainer />} />
         <Route path="/image/read" element={<ImageReadContainer />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
       </Routes>
