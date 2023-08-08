@@ -141,6 +141,7 @@ export default function Header() {
                 </MenuItem>
               </Menu>
             </Dropdown> */}
+            {/* 로그인시 안보이게 할것 */}
             <ListItem role="none">
               <ListItemButton
                 role="menuitem"
@@ -151,6 +152,7 @@ export default function Header() {
                 Log in
               </ListItemButton>
             </ListItem>
+            {/* 로그인시 안보이게 할것 */}
             <ListItem role="none">
               <ListItemButton
                 role="menuitem"
