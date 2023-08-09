@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/reducers/AuthReducer.js";
 import { useCookies } from "react-cookie";
 import Input from "@mui/joy/Input";
-import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import { Typography } from "@mui/material";
 import style from "../common/style.js";
@@ -126,7 +125,7 @@ const Login = () => {
                   placeholder="email"
                   sx={{ width: "300px" }}
                 />
-                <Typography variant="body1" color="error">
+                <Typography color="error">
                   <ErrorMessage name="email" />
                 </Typography>
               </Box>
@@ -145,7 +144,7 @@ const Login = () => {
                     paddingRight: "20px",
                   }}
                 >
-                  <EmailIcon sx={{ color: "#51BC51" }} />
+                  <KeyIcon sx={{ color: "#51BC51" }} />
                   &nbsp;Password
                 </FormLabel>
                 <Input
@@ -157,7 +156,7 @@ const Login = () => {
                   placeholder="password"
                   sx={{ width: "300px" }}
                 />
-                <Typography variant="body2" color="error">
+                <Typography color="error">
                   <ErrorMessage name="password" />
                 </Typography>
               </Box>

@@ -68,6 +68,16 @@ const style = {
       backgroundColor: "#51BC51",
     },
   },
+  /*SignupBtn*/
+  SignupBtn: {
+    color: "#fff",
+    backgroundColor: "#A1E8A1",
+    marginTop: "20px",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "#51BC51",
+    },
+  },
 };
 
 export default style;
