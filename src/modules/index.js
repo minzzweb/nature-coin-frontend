@@ -4,7 +4,8 @@ import imageboard, { imageSaga } from "./imageboard";
 import loading from "./loading";
 
 const rootReducer = combineReducers({
-  // ...
+  imageboard,
+  loading,
 });
 
 export function* rootSaga() {
