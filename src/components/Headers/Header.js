@@ -15,6 +15,7 @@ import IconButton from "@mui/joy/IconButton";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -39,8 +40,8 @@ export default function Header() {
             <ListItem role="none">
               <ListItemButton
                 role="menuitem"
-                component="a"
-                href="#horizontal-list"
+                component={Link}
+                to="/"
                 aria-label="Home"
                 sx={{ ...style.btnStyle, color: "#000" }}
               >
@@ -58,8 +59,8 @@ export default function Header() {
             >
               <ListItemButton
                 role="menuitem"
-                component="a"
-                href="#horizontal-list"
+                component={Link}
+                to="/image/list"
                 sx={{
                   ...style.btnStyle,
                   color: isDropdownOpen ? "#000" : "#fff",
@@ -70,16 +71,27 @@ export default function Header() {
               {isDropdownOpen && (
                 <List aria-labelledby="basic-list-demo" sx={style.menuStyle}>
                   <ListItem>
-                    <ListItemButton>Transportation</ListItemButton>
+                    <ListItemButton
+                      component={Link}
+                      to="/image/list/Transportation"
+                    >
+                      Transportation
+                    </ListItemButton>
                   </ListItem>
                   <ListItem>
-                    <ListItemButton>Cafe</ListItemButton>
+                    <ListItemButton component={Link} to="/image/list/Cafe">
+                      Cafe
+                    </ListItemButton>
                   </ListItem>
                   <ListItem>
-                    <ListItemButton>Bag</ListItemButton>
+                    <ListItemButton component={Link} to="/image/list/Bag">
+                      Bag
+                    </ListItemButton>
                   </ListItem>
                   <ListItem>
-                    <ListItemButton>Food</ListItemButton>
+                    <ListItemButton component={Link} to="/image/list/Food">
+                      Food
+                    </ListItemButton>
                   </ListItem>
                 </List>
               )}
@@ -87,8 +99,8 @@ export default function Header() {
             <ListItem role="none">
               <ListItemButton
                 role="menuitem"
-                component="a"
-                href="#horizontal-list"
+                component={Link}
+                to="/items"
                 sx={style.btnStyle}
               >
                 Shop
@@ -145,8 +157,8 @@ export default function Header() {
             <ListItem role="none">
               <ListItemButton
                 role="menuitem"
-                component="a"
-                href="#horizontal-list"
+                component={Link}
+                to="/login"
                 sx={style.btnStyle}
               >
                 Log in
@@ -156,8 +168,8 @@ export default function Header() {
             <ListItem role="none">
               <ListItemButton
                 role="menuitem"
-                component="a"
-                href="#horizontal-list"
+                component={Link}
+                to="/signUp"
                 sx={style.btnStyle}
               >
                 Sign up

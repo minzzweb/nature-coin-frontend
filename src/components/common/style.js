@@ -58,6 +58,16 @@ const style = {
     borderRadius: "120px",
     marginRight: "2px",
   },
+
+  /*Login*/
+  loginBtn: {
+    color: "#fff",
+    backgroundColor: "#A1E8A1",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "#51BC51",
+    },
+  },
 };
 
 export default style;
