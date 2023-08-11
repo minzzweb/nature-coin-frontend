@@ -27,14 +27,20 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomeContainer />} />
+        {/*이미지 게시판*/}
         <Route path="/image/create" element={<ImageRegisterContainer />} />
-        <Route path="/image/modify" element={<ImageModifyContainer />} />
         <Route path="/image/read" element={<ImageReadContainer />} />
-        <Route path="/image/list" element={<AlbumContainer />}>
-          <Route index element={<ImageListContainer />} />
+
+        {/*아이템 게시판*/}
+        <Route path="/item/create" element={<ImageReadContainer />} />
+
+        {/* <Route path="/image/modify" element={<ImageModifyContainer />} />
+        <Route path="/image/read" element={<ImageReadContainer />} />
+        <Route path="/image/list" element={<AlbumContainer />}> */}
+        {/* <Route index element={<ImageListContainer />} />
           <Route path=":category" element={<Post />} />
-        </Route>
-        <Route path="/items" element={<ItemListContainer />} />
+        </Route> */}
+        {/* <Route path="/items" element={<ItemListContainer />} />*/}
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
 

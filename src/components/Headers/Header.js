@@ -16,9 +16,12 @@ import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import CookieIcon from "@mui/icons-material/Cookie";
 
 export default function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -31,7 +34,12 @@ export default function Header() {
   const handleMouseLeave = () => {
     setDropdownOpen(false);
   };
-
+  const handleGetCoinClick = () => {
+    navigate("/image/create");
+  };
+  const handleShareClick = () => {
+    navigate("/item/create");
+  };
   return (
     <Box component="nav" aria-label="My site" sx={style.BoxStyle}>
       <Box sx={style.BoxContainer}>
@@ -110,7 +118,7 @@ export default function Header() {
 
           <Box sx={style.BoxRight}>
             {/* 로그아웃 시 안보이게 할것 */}
-            {/* 
+
             <ListItem role="none">
               <ListItemButton
                 role="menuitem"
@@ -124,7 +132,7 @@ export default function Header() {
                 5000
               </ListItemButton>
             </ListItem>
-           <Dropdown>
+            <Dropdown>
               <MenuButton
                 slots={{ root: IconButton }}
                 slotProps={{ root: { variant: "outlined", color: "neutral" } }}
@@ -133,11 +141,17 @@ export default function Header() {
                 <MoreVert />
               </MenuButton>
               <Menu placement="bottom-end">
-                <MenuItem>
+                <MenuItem onClick={handleGetCoinClick}>
                   <ListItemDecorator>
                     <Edit />
                   </ListItemDecorator>{" "}
                   Get Coin
+                </MenuItem>
+                <MenuItem onClick={handleShareClick}>
+                  <ListItemDecorator>
+                    <CookieIcon />
+                  </ListItemDecorator>{" "}
+                  Share
                 </MenuItem>
                 <MenuItem>
                   <ListItemDecorator>
@@ -152,7 +166,7 @@ export default function Header() {
                   Log out
                 </MenuItem>
               </Menu>
-            </Dropdown> */}
+            </Dropdown>
             {/* 로그인시 안보이게 할것 */}
             <ListItem role="none">
               <ListItemButton
