@@ -18,9 +18,9 @@ import SignUp from "./components/SignUp/SignUp";
 import NotFound from "./components/NotFound";
 import Posts from "./components/Posts";
 import PostLists from "./components/PostLists";
-import Post from "./components/Post";
 import ItemListContainer from "./containers/ItemListContainer";
-
+import ItemRegisterContainer from "./containers/ItemRegisterContainer";
+import CategoryContainer from "./containers/CategoryContainer";
 function App() {
   return (
     <Router>
@@ -29,20 +29,22 @@ function App() {
         <Route path="/" element={<HomeContainer />} />
         {/*이미지 게시판*/}
         <Route path="/image/create" element={<ImageRegisterContainer />} />
-        <Route path="/image/read" element={<ImageReadContainer />} />
+        <Route path="/image/list" element={<AlbumContainer />}>
+          <Route index element={<ImageListContainer />} />
+          <Route path=":category" element={<CategoryContainer />} />
+        </Route>
 
         {/*아이템 게시판*/}
-        <Route path="/item/create" element={<ImageReadContainer />} />
-
-        {/* <Route path="/image/modify" element={<ImageModifyContainer />} />
+        <Route path="/item/create" element={<ItemRegisterContainer />} />
+        <Route path="/items" element={<ItemListContainer />} />
+        {/* 
+             <Route path="/image/read" element={<ImageReadContainer />} />
+        <Route path="/image/modify" element={<ImageModifyContainer />} />
         <Route path="/image/read" element={<ImageReadContainer />} />
-        <Route path="/image/list" element={<AlbumContainer />}> */}
-        {/* <Route index element={<ImageListContainer />} />
-          <Route path=":category" element={<Post />} />
-        </Route> */}
+        */}
         {/* <Route path="/items" element={<ItemListContainer />} />*/}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signUp" element={<SignUp />} />
+        {/*<Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />*/}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

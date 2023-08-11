@@ -10,23 +10,32 @@ import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
 
 const ImageRegisterForm = ({ onRegister }) => {
-  const [itemName, setItemName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [content, setContent] = useState("");
+  
+  const categories = {
+    1: "Transportation",
+    2: "Cafe",
+    3: "Bag",
+    4: "Food",
+  };
+  const [categoryId, setCategoryId] = useState("");
+  const [imageTitle, setImageTitle] = useState("");
+  const [imageContent, setImageContent] = useState("");
   const [file, setFile] = useState(null);
 
-  const handleChangeItemName = useCallback((e) => {
-    setItemName(e.target.value);
+  const handleChangeCategory = (e, newValue) => {
+    setCategoryId(newValue);
+  };
+
+  const handleChangeImageTitle = useCallback((e) => {
+    setImageTitle(e.target.value);
   }, []);
-  const handleChangePrice = useCallback((e) => {
-    setPrice(e.target.value);
+
+  const handleChangeImageContent = useCallback((e) => {
+    setImageContent(e.target.value);
   }, []);
-  const handleChangeDescription = useCallback((e) => {
-    setContent(e.target.value);
-  }, []);
+
   const handleChangeFile = useCallback((e) => {
     console.log(e.target.files[0]);
-
     setFile(e.target.files[0]);
   }, []);
 
@@ -35,9 +44,9 @@ const ImageRegisterForm = ({ onRegister }) => {
     (e) => {
       e.preventDefault();
 
-      onRegister(itemName, price, content, file);
+      onRegister(imageTitle, imageContent, categoryId, file);
     },
-    [onRegister, itemName, price, content, file]
+    [onRegister, imageTitle, imageContent, categoryId, file]
   );
 
   return (
@@ -70,26 +79,27 @@ const ImageRegisterForm = ({ onRegister }) => {
           <Table size="sm">
             <tbody>
               <tr>
-                {/* 이것두 핸들처리 */}
                 <td style={{ width: "25%" }}>
                   <Select
-                    name="category"
+                    name="categoryId"
                     id="categoryId"
-                    placeholder="Category"
                     size="sm"
+                    onChange={handleChangeCategory}
+                    placeholder="Category"
                   >
-                    <Option value="1">Transportation</Option>
-                    <Option value="2">Cafe</Option>
-                    <Option value="3">Bag</Option>
-                    <Option value="4">Food</Option>
+                    {Object.keys(categories).map((key) => (
+                      <Option key={key} value={key}>
+                        {categories[key]}
+                      </Option>
+                    ))}
                   </Select>
                 </td>
                 <td style={{ width: "75%" }}>
                   <Input
                     variant="outlined"
                     type="text"
-                    value={itemName}
-                    onChange={handleChangeItemName}
+                    value={imageTitle}
+                    onChange={handleChangeImageTitle}
                     placeholder="제목을 입력해주세요"
                     required
                   />
@@ -105,8 +115,8 @@ const ImageRegisterForm = ({ onRegister }) => {
                   <span>최대 200자</span>
                   <Textarea
                     rows="5"
-                    value={content}
-                    onChange={handleChangeDescription}
+                    value={imageContent}
+                    onChange={handleChangeImageContent}
                     required
                     sx={{
                       height: "200px",
