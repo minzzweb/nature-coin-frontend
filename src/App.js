@@ -36,8 +36,9 @@ function App() {
 
         {/*아이템 게시판*/}
         <Route path="/items" element={<ItemListContainer />} />
+
         {/* 
-             <Route path="/image/read" element={<ImageReadContainer />} />
+            
         <Route path="/image/modify" element={<ImageModifyContainer />} />
         */}
         {/* <Route path="/items" element={<ItemListContainer />} />*/}
