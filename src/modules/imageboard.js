@@ -13,7 +13,10 @@ export const FETCH_FAILURE = "image/FETCH_FAILURE";
 export const FETCH_IMAGE = "image/FETCH_IMAGE";
 
 //액션 생성함수
-export const fetchSuccess = createAction(FETCH_SUCCESS, (data) => data);
+export const fetchSuccess = createAction(
+  FETCH_SUCCESS,
+  (image, categoryName) => ({ image, categoryName })
+);
 export const fetchFailure = createAction(FETCH_FAILURE, (e) => e);
 
 //상세 조회 액션 생성함수
@@ -26,7 +29,7 @@ function* fetchImageSaga(action) {
   try {
     const response = yield call(fetchImageApi, action.payload);
 
-    yield put(fetchSuccess(response.data));
+    yield put(fetchSuccess(response.data.image, response.data.categoryName));
   } catch (e) {
     yield put(fetchFailure(e));
   }
@@ -43,6 +46,7 @@ const initialState = {
   image: null,
   images: [],
   error: null,
+  categoryName: null,
 };
 
 const image = handleActions(
@@ -50,7 +54,8 @@ const image = handleActions(
     //상세 조회 상태 변경
     [FETCH_SUCCESS]: (state, action) => ({
       ...state,
-      image: action.payload,
+      image: action.payload.image,
+      categoryName: action.payload.categoryName,
     }),
     [FETCH_FAILURE]: (state, action) => ({
       ...state,

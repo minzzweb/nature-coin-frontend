@@ -8,15 +8,25 @@ const ImageReadContainer = () => {
   const { imageId } = useParams();
   const dispatch = useDispatch();
 
-  const { image, isLoading } = useSelector(({ image, loading }) => ({
-    image: image.image,
-    isLoading: loading[FETCH_IMAGE],
-  }));
+  const { image, categoryName, isLoading } = useSelector(
+    ({ image, loading }) => ({
+      image: image.image,
+      categoryName: image.categoryName,
+      isLoading: loading[FETCH_IMAGE],
+    })
+  );
 
   useEffect(() => {
     dispatch(fetchImage(imageId));
   }, [dispatch, imageId]);
 
-  return <ImageRead imageId={imageId} image={image} isLoading={isLoading} />;
+  return (
+    <ImageRead
+      imageId={imageId}
+      image={image}
+      isLoading={isLoading}
+      categoryName={categoryName}
+    />
+  );
 };
 export default ImageReadContainer;
