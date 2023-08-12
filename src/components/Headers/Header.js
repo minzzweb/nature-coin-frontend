@@ -17,7 +17,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import CookieIcon from "@mui/icons-material/Cookie";
 
 export default function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -150,12 +149,7 @@ export default function Header() {
                   </ListItemDecorator>{" "}
                   Get Coin
                 </MenuItem>
-                <MenuItem onClick={handleShareClick}>
-                  <ListItemDecorator>
-                    <CookieIcon />
-                  </ListItemDecorator>{" "}
-                  Share
-                </MenuItem>
+
                 <MenuItem>
                   <ListItemDecorator>
                     <PersonIcon />
