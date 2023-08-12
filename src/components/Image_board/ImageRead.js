@@ -76,11 +76,11 @@ const ImageRead = ({ imageId, image, isLoading, categoryName }) => {
                 >
                   {categoryName}{" "}
                 </td>
-                <td colSpan={5}> {image.imageTitle}</td>
+                <td colSpan={6}> {image.imageTitle}</td>
               </tr>
 
               <tr>
-                <td colSpan="8">
+                <td colSpan={8}>
                   <Box
                     sx={{
                       width: "300px",
