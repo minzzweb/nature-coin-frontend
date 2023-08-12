@@ -10,6 +10,7 @@ const style = {
     top: 0,
     left: 0,
     boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
+    zIndex: "1000",
   },
   BoxContainer: {
     width: "1200px",

@@ -19,7 +19,6 @@ import NotFound from "./components/NotFound";
 import Posts from "./components/Posts";
 import PostLists from "./components/PostLists";
 import ItemListContainer from "./containers/ItemListContainer";
-import ItemRegisterContainer from "./containers/ItemRegisterContainer";
 import CategoryContainer from "./containers/CategoryContainer";
 function App() {
   return (
@@ -33,14 +32,13 @@ function App() {
           <Route index element={<ImageListContainer />} />
           <Route path=":category" element={<CategoryContainer />} />
         </Route>
+        <Route path="/image/read/:imageId" element={<ImageReadContainer />} />
 
         {/*아이템 게시판*/}
-        <Route path="/item/create" element={<ItemRegisterContainer />} />
         <Route path="/items" element={<ItemListContainer />} />
         {/* 
              <Route path="/image/read" element={<ImageReadContainer />} />
         <Route path="/image/modify" element={<ImageModifyContainer />} />
-        <Route path="/image/read" element={<ImageReadContainer />} />
         */}
         {/* <Route path="/items" element={<ItemListContainer />} />*/}
         {/*<Route path="/login" element={<Login />} />
@@ -48,6 +46,7 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

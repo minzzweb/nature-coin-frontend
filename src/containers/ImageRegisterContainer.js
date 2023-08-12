@@ -25,11 +25,12 @@ const ImageRegisterContainer = () => {
       })
       .then((res) => {
         alert("등록되었습니다.");
-        //navigete("/read/" + res.data.itemId);
-        console.log(imageObject);
+        console.log("res.data.imageId = " + res.data.imageId);
+        navigete("/image/read/" + res.data.imageId);
       })
       .catch((err) => {
         console.log(err);
+        alert("카테고리와 사진 입력은 필수 입니다!");
       });
   };
 

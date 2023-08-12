@@ -1,36 +1,63 @@
-// import { handleActions, createAction } from "redux-actions";
-// import { takeLatest, call, put } from "redux-saga/effects";
+import { handleActions, createAction } from "redux-actions";
+import { takeLatest, call, put } from "redux-saga/effects";
+//서버 api
+import { fetchImageApi } from "../lib/api";
+//로딩
+import { startLoading, endLoading } from "../modules/loading";
 
-// // 상품 사가 함수 작성
-// export function* fetchImageSaga() {
-//   yield takeLatest(FETCH_ITEM, fetchImageSaga);
-// }
+//액션타입
+export const FETCH_SUCCESS = "image/FETCH_SUCCESS";
+export const FETCH_FAILURE = "image/FETCH_FAILURE";
 
-// // 초기 상태
-// const initialState = {
-//   image: null,
-//   images: [],
-//   error: null,
-// };
+//상세 조회 액션 타입
+export const FETCH_IMAGE = "image/FETCH_IMAGE";
 
-// export const FETCH_ITEM = "item/FETCH_ITEM";
-// export const FETCH_SUCCESS = "item/FETCH_SUCCESS";
-// export const FETCH_FAILURE = "item/FETCH_FAILURE";
+//액션 생성함수
+export const fetchSuccess = createAction(FETCH_SUCCESS, (data) => data);
+export const fetchFailure = createAction(FETCH_FAILURE, (e) => e);
 
-// export const fetchItem = createAction(FETCH_ITEM, (itemId) => itemId);
+//상세 조회 액션 생성함수
+export const fetchImage = createAction(FETCH_IMAGE, (imageId) => imageId);
 
-// const image = handleActions(
-//   {
-//     [FETCH_SUCCESS]: (state, action) => ({
-//       ...state,
-//       image: action.payload,
-//     }),
-//     [FETCH_FAILURE]: (state, action) => ({
-//       ...state,
-//       error: action.payload,
-//     }),
-//   },
-//   initialState
-// );
+//상품 상세 조회 테스크 작성
+function* fetchImageSaga(action) {
+  yield put(startLoading(FETCH_IMAGE));
 
-// export default image;
+  try {
+    const response = yield call(fetchImageApi, action.payload);
+
+    yield put(fetchSuccess(response.data));
+  } catch (e) {
+    yield put(fetchFailure(e));
+  }
+  yield put(endLoading(FETCH_IMAGE));
+}
+
+export function* imageSaga() {
+  // 상세 조회 태스크 수행
+  yield takeLatest(FETCH_IMAGE, fetchImageSaga);
+}
+
+// 초기 상태
+const initialState = {
+  image: null,
+  images: [],
+  error: null,
+};
+
+const image = handleActions(
+  {
+    //상세 조회 상태 변경
+    [FETCH_SUCCESS]: (state, action) => ({
+      ...state,
+      image: action.payload,
+    }),
+    [FETCH_FAILURE]: (state, action) => ({
+      ...state,
+      error: action.payload,
+    }),
+  },
+  initialState
+);
+
+export default image;

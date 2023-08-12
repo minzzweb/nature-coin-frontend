@@ -77,7 +77,10 @@ export default function Header() {
                 Album
               </ListItemButton>
               {isDropdownOpen && (
-                <List aria-labelledby="basic-list-demo" sx={style.menuStyle}>
+                <List
+                  aria-labelledby="basic-list-demo"
+                  sx={{ ...style.menuStyle }}
+                >
                   <ListItem>
                     <ListItemButton
                       component={Link}

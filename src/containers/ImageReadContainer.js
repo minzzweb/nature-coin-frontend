@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchImage, FETCH_IMAGE } from "../modules/imageboard";
 import ImageRead from "../components/Image_board/ImageRead";
-//import { useDispatch, useSelector } from "react-redux";
-//import { fetchItem, FETCH_ITEM } from "../modules/imageboard";
 import { useParams } from "react-router-dom";
 
 const ImageReadContainer = () => {
-  //const { imageId } = useParams();
-  //const dispatch = useDispatch();
+  const { imageId } = useParams();
+  const dispatch = useDispatch();
 
-  //const { image, isLoading } = useSelector(({ image, loading }) => ({
-  //  image: image.item,
-  //  isLoading: loading[FETCH_ITEM],
-  //}));
+  const { image, isLoading } = useSelector(({ image, loading }) => ({
+    image: image.image,
+    isLoading: loading[FETCH_IMAGE],
+  }));
 
-  //useEffect(() => {
-  //  dispatch(fetchItem(imageId));
-  //}, [dispatch, imageId]);
+  useEffect(() => {
+    dispatch(fetchImage(imageId));
+  }, [dispatch, imageId]);
 
-  //return <ImageRead imageId={imageId} image={image} isLoading={isLoading} />;
-  return <ImageRead />;
+  return <ImageRead imageId={imageId} image={image} isLoading={isLoading} />;
 };
 export default ImageReadContainer;

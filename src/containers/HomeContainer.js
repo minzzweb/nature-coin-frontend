@@ -1,7 +1,13 @@
-import Home from "../components/Home/Home";
+import HomeBackground from "../components/Home/HomeBackground";
+import HomeSection from "../components/Home/HomeSection";
 
 const HomeContainer = () => {
-  return <Home />;
+  return (
+    <>
+      <HomeBackground />;
+      <HomeSection />
+    </>
+  );
 };
 
 export default HomeContainer;
