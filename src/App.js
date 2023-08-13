@@ -36,8 +36,8 @@ function App() {
         {/*아이템 게시판*/}
         <Route path="/items" element={<ItemListContainer />} />
 
-        {/*<Route path="/login" element={<Login />} />
-        <Route path="/signUp" element={<SignUp />} />*/}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
