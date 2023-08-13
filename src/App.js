@@ -31,14 +31,11 @@ function App() {
           <Route path=":category" element={<CategoryContainer />} />
         </Route>
         <Route path="/image/read/:imageId" element={<ImageReadContainer />} />
+        <Route path="/image/edit/:imageId" element={<ImageModifyContainer />} />
 
         {/*아이템 게시판*/}
         <Route path="/items" element={<ItemListContainer />} />
 
-        {/* 
-            
-        <Route path="/image/modify" element={<ImageModifyContainer />} />
-        */}
         {/* <Route path="/items" element={<ItemListContainer />} />*/}
         {/*<Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />*/}

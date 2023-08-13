@@ -124,7 +124,7 @@ const ImageRead = ({ imageId, image, isLoading, categoryName, onRemove }) => {
           >
             <Button
               component={Link}
-              to="/edit/${imageId}"
+              to={`/image/edit/${imageId}`}
               size="sm"
               sx={{
                 backgroundColor: "#CDD7E1",
@@ -139,7 +139,7 @@ const ImageRead = ({ imageId, image, isLoading, categoryName, onRemove }) => {
               size="sm"
               sx={{
                 backgroundColor: "#CDD7E1",
-                height: "36px",
+                height: "40px",
                 margin: "0px 3px",
               }}
             >
