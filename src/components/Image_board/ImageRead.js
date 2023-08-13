@@ -8,7 +8,7 @@ import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
 import Table from "@mui/joy/Table";
 
-const ImageRead = ({ imageId, image, isLoading, categoryName }) => {
+const ImageRead = ({ imageId, image, isLoading, categoryName, onRemove }) => {
   // 이미지 표시 URL 생성
   const pictureUrl = () => {
     return (
@@ -135,8 +135,7 @@ const ImageRead = ({ imageId, image, isLoading, categoryName }) => {
               편집
             </Button>
             <Button
-              component={Link}
-              to={"/image/list/" + categoryName}
+              onClick={onRemove}
               size="sm"
               sx={{
                 backgroundColor: "#CDD7E1",
