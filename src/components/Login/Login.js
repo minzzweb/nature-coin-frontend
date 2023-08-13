@@ -79,10 +79,7 @@ const Login = () => {
             gap: 2,
             alignItems: "center",
             justifyContent: "center", // Add this line to center horizontally and vertically
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            margin: "200px 0px",
           }}
         >
           <ToastContainer />

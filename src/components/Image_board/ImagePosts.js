@@ -10,7 +10,12 @@ import Typography from "@mui/joy/Typography";
 
 const ImagePosts = ({ itemData, category }) => {
   return (
-    <Box sx={{ width: 1200, margin: "0 auto", marginTop: "30px" }}>
+    <Box
+      sx={{
+        width: 1200,
+        margin: "0 auto",
+      }}
+    >
       <ImageList sx={{ width: 1200, overflow: "hidden" }}>
         <ImageListItem key="Subheader" cols={4}>
           <Typography
