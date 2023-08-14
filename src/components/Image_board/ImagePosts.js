@@ -3,12 +3,19 @@ import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-
+import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Typography from "@mui/joy/Typography";
 
-const ImagePosts = ({ itemData, category }) => {
+const ImagePosts = ({ images, categoryName, isLoading }) => {
+  console.log(images);
+
+  const pictureUrl = (imageId) => {
+    return (
+      "/image/display?imageId=" + imageId + "&timestamp=" + new Date().getTime()
+    );
+  };
   return (
     <Box
       sx={{
@@ -16,40 +23,51 @@ const ImagePosts = ({ itemData, category }) => {
         margin: "0 auto",
       }}
     >
-      <ImageList sx={{ width: 1200, overflow: "hidden" }}>
-        <ImageListItem key="Subheader" cols={4}>
-          <Typography
-            level="h3"
-            sx={{
-              color: "#EA9A3E",
-              marginBottom: "30px",
-            }}
-          >
-            {category}
-          </Typography>
-        </ImageListItem>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=300&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=300&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.imageTitle}
-              loading="lazy"
-              style={{ height: "300px", width: "300px" }}
-            />
-            <ImageListItemBar
-              title={item.imageTitle}
-              subtitle={item.imageWriter}
-              actionIcon={
-                <IconButton
-                  sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                  aria-label={`info about ${item.title}`}
-                ></IconButton>
-              }
-            />
+      {isLoading && "로딩중..."}
+      {!isLoading && images && (
+        <ImageList sx={{ width: 1200, overflow: "hidden" }}>
+          <ImageListItem key="Subheader" cols={4}>
+            <ListSubheader component="div">
+              <Typography
+                level="h3"
+                sx={{
+                  color: "#EA9A3E",
+                  marginBottom: "30px",
+                }}
+              >
+                {categoryName}
+              </Typography>
+            </ListSubheader>
           </ImageListItem>
-        ))}
-      </ImageList>
+          {images.map((image) => (
+            <Link to={"/image/read/" + image.imageId} key={image.imageId}>
+              <ImageListItem sx={{ height: 300, width: 300 }}>
+                <img
+                  src={`${pictureUrl(
+                    image.imageId
+                  )}?w=300&fit=crop&auto=format`}
+                  srcSet={`${pictureUrl(
+                    image.imageId
+                  )}?w=300&fit=crop&auto=format&dpr=2 2x`}
+                  alt={image.imageTitle}
+                  loading="lazy"
+                  style={{ height: "300px", width: "300px" }}
+                />
+                <ImageListItemBar
+                  title={image.imageTitle}
+                  subtitle={image.imageWriter}
+                  actionIcon={
+                    <IconButton
+                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                      aria-label={`info about ${image.title}`}
+                    ></IconButton>
+                  }
+                />
+              </ImageListItem>
+            </Link>
+          ))}
+        </ImageList>
+      )}
     </Box>
   );
 };
