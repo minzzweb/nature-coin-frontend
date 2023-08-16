@@ -14,7 +14,7 @@ import ImageModifyContainer from "./containers/ImageModifyContainer";
 import ImageReadContainer from "./containers/ImageReadContainer";
 import AlbumContainer from "./containers/AlbumContainer";
 import Login from "./components/Login/Login";
-import SignUp from "./components/SignUp/SignUp";
+import SignUpContainer from "./containers/SignUpContainer";
 import NotFound from "./components/NotFound";
 import ItemListContainer from "./containers/ItemListContainer";
 import CategoryContainer from "./containers/CategoryContainer";
@@ -37,7 +37,7 @@ function App() {
         <Route path="/items" element={<ItemListContainer />} />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/signUp" element={<SignUpContainer />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

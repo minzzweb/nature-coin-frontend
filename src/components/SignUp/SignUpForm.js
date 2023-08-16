@@ -10,8 +10,9 @@ import FormLabel from "@mui/joy/FormLabel";
 import { Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import style from "../common/style.js";
-const Signup = () => {
-  const navigate = useNavigate();
+
+const SignUpForm = ({ onSignUp }) => {
+  //const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("유효한 이메일 주소를 입력해주세요")
@@ -36,28 +37,6 @@ const Signup = () => {
       .oneOf([Yup.ref("password"), null], "비밀번호가 일치하지 않습니다.")
       .required("필수 입력 값입니다."),
   });
-  const submit = async (values) => {
-    const { email, nickname, password } = values;
-    try {
-      await axios.post("http://localhost:8080/api/members", {
-        email,
-        nickname,
-        password,
-      });
-      toast.success(<h3>회원가입이 완료되었습니다.</h3>, {
-        position: "top-center",
-        autoClose: 2000,
-      });
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-    } catch (e) {
-      // 서버에서 받은 에러 메시지 출력
-      toast.error(e.response.data.message, {
-        position: "top-center",
-      });
-    }
-  };
 
   return (
     <Formik
@@ -68,7 +47,7 @@ const Signup = () => {
         password2: "",
       }}
       validationSchema={validationSchema}
-      onSubmit={submit}
+      onSubmit={onSignUp}
       validateOnMount={true}
     >
       {({ values, handleSubmit, handleChange, errors }) => (
@@ -225,4 +204,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUpForm;

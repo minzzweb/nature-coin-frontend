@@ -9,3 +9,11 @@ export const removeImageApi = (imageId) => axios.delete(`/image/${imageId}`);
 //이미지 목록
 export const fetchItemListByCategoryApi = (categoryName) =>
   axios.get(`/image/list/${categoryName}`);
+
+//회원가입
+export const signUp = (email, nickname, password) =>
+  axios.post("/users", { email, nickname, password });
+
+//로그인
+export const signIn = (email, password) =>
+  axios.post(`/api/authenticate?email=${email}&password=${password}`);
