@@ -1,11 +1,13 @@
 import { createAction, handleActions } from "redux-actions";
 import { takeLatest, call, put } from "redux-saga/effects";
-import { signIn } from "../lib/api";
+import { signIn, getMyInfo } from "../lib/api";
 import client from "../lib/client";
 
 //액션 타입
 const SET_ACCESS_TOKEN = "auth/SET_ACCESS_TOKEN";
 const LOGIN = "auth/LOGIN";
+const SET_MY_INFO = "auth/SET_MY_INFO";
+const CHECK_MY_INFO = "auth/CHECK_MY_INFO";
 
 //액션 생성함수
 export const setAccessToken = createAction(
@@ -17,6 +19,11 @@ export const login = createAction(LOGIN, ({ email, password }) => ({
   password,
   //아이디, 비번 받아옴
 }));
+
+//사용자정보 설정
+export const setMyInfo = createAction(SET_MY_INFO, (myInfo) => myInfo);
+//사용자정보 수신
+export const checkMyInfo = createAction(CHECK_MY_INFO);
 
 //비동기
 function* loginSaga(action) {
@@ -35,13 +42,28 @@ function* loginSaga(action) {
     console.log(e);
   }
 }
+
+//사용자 정보
+function* checkMyInfoSaga() {
+  try {
+    const response = yield call(getMyInfo);
+
+    yield put(setMyInfo(response.data));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(CHECK_MY_INFO, checkMyInfoSaga);
 }
 
 //초기상태
 const initialState = {
   accessToken: "",
+  //로그인한 사용자 정보
+  myInfo: null,
 };
 
 //리듀서
@@ -50,6 +72,10 @@ const auth = handleActions(
     [SET_ACCESS_TOKEN]: (state, action) => ({
       ...state,
       accessToken: action.payload,
+    }),
+    [SET_MY_INFO]: (state, action) => ({
+      ...state,
+      myInfo: action.payload,
     }),
   },
   initialState
