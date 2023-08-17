@@ -51,8 +51,8 @@ const ImageListContainer = () => {
                 textDecoration: "none",
                 color: "inherit",
                 "&:hover": {
-                  color: "inherit", // 클릭하지 않은 상태에서의 컬러 유지
-                  textDecoration: "none", // 클릭하지 않은 상태에서의 밑줄 유지
+                  color: "inherit",
+                  textDecoration: "none",
                 },
               }}
             >
