@@ -20,8 +20,6 @@ export const login = createAction(LOGIN, ({ email, password }) => ({
 
 //비동기
 function* loginSaga(action) {
-  //loginSaga(login)
-
   try {
     const { email, password } = action.payload;
 
