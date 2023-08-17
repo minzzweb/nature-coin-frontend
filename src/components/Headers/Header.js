@@ -18,7 +18,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ myInfo, isAuthorized }) {
+export default function Header({ myInfo, isAuthorized, onLogout }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -39,6 +39,7 @@ export default function Header({ myInfo, isAuthorized }) {
   const handleShareClick = () => {
     navigate("/item/create");
   };
+
   return (
     <Box component="nav" aria-label="My site" sx={style.BoxStyle}>
       <Box sx={style.BoxContainer}>
@@ -160,7 +161,7 @@ export default function Header({ myInfo, isAuthorized }) {
                     </ListItemDecorator>{" "}
                     My page
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={onLogout}>
                     <ListItemDecorator>
                       <LogoutIcon />
                     </ListItemDecorator>{" "}
