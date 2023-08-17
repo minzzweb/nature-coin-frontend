@@ -1,14 +1,18 @@
 import axios from "axios";
 import client from "./client";
+
 //이미지 게시판 상세
 export const fetchImageApi = (imageId) => axios.get(`/image/${imageId}`);
 
 //이미지 삭제
 export const removeImageApi = (imageId) => axios.delete(`/image/${imageId}`);
 
-//이미지 목록
+//이미지 카테고리별 목록
 export const fetchItemListByCategoryApi = (categoryName) =>
   axios.get(`/image/list/${categoryName}`);
+
+//이미지 메인 목록
+export const fetchItemListApi = () => axios.get("/image");
 
 //회원가입
 export const signUp = (email, nickname, password) =>
