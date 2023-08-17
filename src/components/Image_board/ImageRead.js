@@ -114,6 +114,9 @@ const ImageRead = ({ imageId, image, isLoading, categoryName, onRemove }) => {
                   ></Textarea>
                 </td>
               </tr>
+              <tr>
+                <td colSpan="8">{image.regDate} 에 작성되었습니다.</td>
+              </tr>
             </tbody>
           </Table>
           <Box
