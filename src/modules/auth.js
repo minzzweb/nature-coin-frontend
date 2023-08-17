@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { takeLatest, call, put } from "redux-saga/effects";
 import { signIn, getMyInfo } from "../lib/api";
 import client from "../lib/client";
+import Cookies from "js-cookie";
 
 //액션 타입
 const SET_ACCESS_TOKEN = "auth/SET_ACCESS_TOKEN";
@@ -36,8 +37,11 @@ function* loginSaga(action) {
     const accessToken = authorization.substring(7);
 
     yield put(setAccessToken(accessToken));
-    client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
     //로그인 후 모든 요청에 액세스 토큰을 포함시킴
+    client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+    //쿠키에 액세스토큰 저장
+    Cookies.set("accessToken", accessToken, { expires: 1 });
   } catch (e) {
     console.log(e);
   }
