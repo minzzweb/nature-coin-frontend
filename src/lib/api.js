@@ -21,3 +21,6 @@ export const signIn = (email, password) =>
 //최초 관리자 생성
 export const adminSetup = (email, nickname, password) =>
   client.post("/users/setup", { email, nickname, password });
+
+//로그인 정보
+export const getMyInfo = () => client.get("/users/myinfo");
