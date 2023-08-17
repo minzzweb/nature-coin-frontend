@@ -1,66 +1,23 @@
-import axios from "axios";
-
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useCallback } from "react";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Box, Button, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setToken } from "../../redux/reducers/AuthReducer.js";
-import { useCookies } from "react-cookie";
-import Input from "@mui/joy/Input";
-import FormLabel from "@mui/joy/FormLabel";
-import { Typography } from "@mui/material";
-import style from "../common/style.js";
-import EmailIcon from "@mui/icons-material/Email";
+import { Box, Button } from "@mui/material";
 import KeyIcon from "@mui/icons-material/Key";
+import Input from "@mui/joy/Input";
+import { Typography } from "@mui/material";
+import FormLabel from "@mui/joy/FormLabel";
+import { ToastContainer } from "react-toastify";
+import EmailIcon from "@mui/icons-material/Email";
+import style from "../common/style.js";
 import { Link } from "react-router-dom";
 
-const Login = () => {
-  const [cookie, setCookie] = useCookies([]);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+const SignInForm = ({ onSignIn }) => {
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("올바른 이메일 형식이 아닙니다")
       .required("이메일을 입력하세요"),
     password: Yup.string().required("패스워드를 입력하세요"),
   });
-  const submit = async (values) => {
-    const { email, password } = values;
-    const formData = new FormData();
-    formData.append("email", values.email);
-    formData.append("password", values.password);
-    try {
-      const { data } = await axios.post(
-        "http://localhost:8080/login",
-        formData
-      );
-      dispatch(setToken(data.token));
-      dispatch({ type: "TOKEN", data: data.accessToken });
-      dispatch({ type: "MEMBERID", data: data.email });
-      console.log(data.accessToken);
-      console.log(data.email);
-
-      const expires = new Date();
-      expires.setDate(expires.getDate() + 1);
-      setCookie("refreshToken", data.refreshToken, {
-        url: "/",
-        expires,
-      });
-
-      toast.success(<h3>로그인 성공</h3>, {
-        position: "top-center",
-        autoClose: 2000,
-      });
-      document.location.href = "/";
-    } catch (e) {
-      toast.error("비밀번호를 다시 확인해주세요" + "😭", {
-        position: "top-center",
-      });
-    }
-  };
 
   return (
     <Formik
@@ -69,7 +26,9 @@ const Login = () => {
         password: "",
       }}
       validationSchema={validationSchema}
-      onSubmit={submit}
+      onSubmit={(values) => {
+        onSignIn(values.email, values.password);
+      }}
     >
       {({ values, handleSubmit, handleChange }) => (
         <Box
@@ -172,4 +131,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignInForm;

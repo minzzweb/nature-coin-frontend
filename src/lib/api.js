@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import client from "./client";
 //이미지 게시판 상세
 export const fetchImageApi = (imageId) => axios.get(`/image/${imageId}`);
 
@@ -16,4 +16,4 @@ export const signUp = (email, nickname, password) =>
 
 //로그인
 export const signIn = (email, password) =>
-  axios.post(`/api/authenticate?email=${email}&password=${password}`);
+  client.post(`/api/authenticate?email=${email}&password=${password}`);
