@@ -40,6 +40,10 @@ export default function Header({ myInfo, isAuthorized, onLogout }) {
     navigate("/item/create");
   };
 
+  const handleMypageClick = () => {
+    navigate("/member/mypage");
+  };
+
   return (
     <Box component="nav" aria-label="My site" sx={style.BoxStyle}>
       <Box sx={style.BoxContainer}>
@@ -136,40 +140,39 @@ export default function Header({ myInfo, isAuthorized, onLogout }) {
                 </ListItemButton>
               </ListItem>
             )}
-            {isAuthorized && myInfo && (
-              <Dropdown>
-                <MenuButton
-                  slots={{ root: IconButton }}
-                  slotProps={{
-                    root: { variant: "outlined", color: "neutral" },
-                  }}
-                  sx={style.myBtn}
-                >
-                  <MoreVert />
-                </MenuButton>
-                <Menu placement="bottom-end">
-                  <MenuItem onClick={handleGetCoinClick}>
-                    <ListItemDecorator>
-                      <Edit />
-                    </ListItemDecorator>{" "}
-                    Get Coin
-                  </MenuItem>
-
-                  <MenuItem>
-                    <ListItemDecorator>
-                      <PersonIcon />
-                    </ListItemDecorator>{" "}
-                    My page
-                  </MenuItem>
-                  <MenuItem onClick={onLogout}>
-                    <ListItemDecorator>
-                      <LogoutIcon />
-                    </ListItemDecorator>{" "}
-                    Log out
-                  </MenuItem>
-                </Menu>
-              </Dropdown>
-            )}
+            {/* {isAuthorized && myInfo && (*/}
+            <Dropdown>
+              <MenuButton
+                slots={{ root: IconButton }}
+                slotProps={{
+                  root: { variant: "outlined", color: "neutral" },
+                }}
+                sx={style.myBtn}
+              >
+                <MoreVert />
+              </MenuButton>
+              <Menu placement="bottom-end">
+                <MenuItem onClick={handleGetCoinClick}>
+                  <ListItemDecorator>
+                    <Edit />
+                  </ListItemDecorator>{" "}
+                  Get Coin
+                </MenuItem>
+                <MenuItem onClick={handleMypageClick}>
+                  <ListItemDecorator>
+                    <PersonIcon />
+                  </ListItemDecorator>{" "}
+                  My page
+                </MenuItem>
+                <MenuItem onClick={onLogout}>
+                  <ListItemDecorator>
+                    <LogoutIcon />
+                  </ListItemDecorator>{" "}
+                  Log out
+                </MenuItem>
+              </Menu>
+            </Dropdown>
+            {/* )}*/}
             {!isAuthorized && !myInfo && (
               <ListItem role="none">
                 <ListItemButton
