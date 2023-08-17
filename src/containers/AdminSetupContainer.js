@@ -21,7 +21,7 @@ const AdminSetupContainer = () => {
         autoClose: 2000,
       });
 
-      navigate("/login");
+      navigate("/signin");
     } catch (e) {
       toast.error(e.response.data.message, {
         position: "top-center",

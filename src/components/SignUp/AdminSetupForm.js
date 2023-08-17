@@ -11,7 +11,7 @@ import { Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import style from "../common/style.js";
 
-const SignUpForm = ({ onRegister }) => {
+const AdminSetupForm = ({ onRegister }) => {
   //const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -204,4 +204,4 @@ const SignUpForm = ({ onRegister }) => {
   );
 };
 
-export default SignUpForm;
+export default AdminSetupForm;

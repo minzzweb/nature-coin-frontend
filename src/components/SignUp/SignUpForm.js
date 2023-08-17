@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Box, Button, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "@mui/joy/Input";
 import FormLabel from "@mui/joy/FormLabel";
 import { Typography } from "@mui/material";
@@ -65,7 +65,19 @@ const SignUpForm = ({ onSignUp }) => {
           <Typography variant="h4" gutterBottom sx={{ color: "#1F7A1F" }}>
             NATURE COIN
           </Typography>
+          <Button
+            component={Link}
+            to="/member/setup"
+            sx={{
+              margin: "0px",
 
+              marginLeft: "5px",
+              background: "#1F7A1F",
+              color: "#fff",
+            }}
+          >
+            최초관리자 등록
+          </Button>
           <form onSubmit={handleSubmit} autoComplete="off">
             <Box
               sx={{
