@@ -35,6 +35,14 @@ const SignInContainer = () => {
     }
   }, [accessToken, dispatch, navigate]);
 
+  useEffect(() => {
+    if (myInfo) {
+      alert("로그인 되었습니다.");
+
+      navigate("/");
+    }
+  }, [myInfo, navigate]);
+
   return <SignInForm onSignIn={onSignIn} />;
 };
 
