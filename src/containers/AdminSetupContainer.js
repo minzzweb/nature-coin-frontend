@@ -20,6 +20,9 @@ const AdminSetupContainer = () => {
         position: "top-center",
         autoClose: 2000,
       });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
 
       navigate("/signin");
     } catch (e) {

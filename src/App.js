@@ -5,7 +5,7 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
-import Header from "./components/Headers/Header";
+import HeaderContainer from "./containers/HeaderContainer";
 import Footer from "./components/Footers/Footer";
 import HomeContainer from "./containers/HomeContainer";
 import ImageListContainer from "./containers/ImageListContainer";
@@ -23,7 +23,7 @@ import AdminSetupContainer from "./containers/AdminSetupContainer";
 function App() {
   return (
     <Router>
-      <Header />
+      <HeaderContainer />
       <Routes>
         <Route path="/" element={<HomeContainer />} />
         {/*이미지 게시판*/}
@@ -43,7 +43,6 @@ function App() {
         <Route path="/signup" element={<SignUpContainer />} />
 
         {/*관리자*/}
-        {/* <Route path="/signin" element={<SignInContainer />} /> */}
         <Route path="/member/setup" element={<AdminSetupContainer />} />
 
         <Route path="*" element={<NotFound />} />

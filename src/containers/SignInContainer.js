@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SignInForm from "../components/Login/SignInForm";
-import { login } from "../modules/auth";
+import { checkMyInfo, login } from "../modules/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -9,14 +9,12 @@ const SignInContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { accessToken } = useSelector(({ auth }) => ({
+  const { accessToken, myInfo } = useSelector(({ auth }) => ({
     accessToken: auth.accessToken,
+    myInfo: auth.myInfo,
   }));
 
   const onSignIn = (email, password) => {
-    console.log("notencodedEmail" + email);
-    console.log("notencodedPassword" + password);
-
     try {
       dispatch(login({ email, password }));
 
@@ -30,10 +28,10 @@ const SignInContainer = () => {
       });
     }
   };
+
   useEffect(() => {
     if (accessToken) {
-      alert("로그인 되었습니다.");
-      navigate("/");
+      dispatch(checkMyInfo()); //로그인 후 토큰 있으면 checkMyInfo보내서  사용자정보 응답받아 state에 저장
     }
   }, [accessToken, dispatch, navigate]);
 

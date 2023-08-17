@@ -18,7 +18,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ myInfo, isAuthorized }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -120,72 +120,79 @@ export default function Header() {
 
           <Box sx={style.BoxRight}>
             {/* 로그아웃 시 안보이게 할것 */}
+            {isAuthorized && myInfo && (
+              <ListItem role="none">
+                <ListItemButton
+                  role="menuitem"
+                  component="a"
+                  href="#horizontal-list"
+                  sx={{ ...style.coinStyle }}
+                >
+                  <ListItemDecorator>
+                    <AttachMoneyIcon />
+                  </ListItemDecorator>{" "}
+                  {myInfo.coin}
+                </ListItemButton>
+              </ListItem>
+            )}
+            {isAuthorized && myInfo && (
+              <Dropdown>
+                <MenuButton
+                  slots={{ root: IconButton }}
+                  slotProps={{
+                    root: { variant: "outlined", color: "neutral" },
+                  }}
+                  sx={style.myBtn}
+                >
+                  <MoreVert />
+                </MenuButton>
+                <Menu placement="bottom-end">
+                  <MenuItem onClick={handleGetCoinClick}>
+                    <ListItemDecorator>
+                      <Edit />
+                    </ListItemDecorator>{" "}
+                    Get Coin
+                  </MenuItem>
 
-            <ListItem role="none">
-              <ListItemButton
-                role="menuitem"
-                component="a"
-                href="#horizontal-list"
-                sx={{ ...style.coinStyle }}
-              >
-                <ListItemDecorator>
-                  <AttachMoneyIcon />
-                </ListItemDecorator>{" "}
-                5000
-              </ListItemButton>
-            </ListItem>
-            <Dropdown>
-              <MenuButton
-                slots={{ root: IconButton }}
-                slotProps={{ root: { variant: "outlined", color: "neutral" } }}
-                sx={style.myBtn}
-              >
-                <MoreVert />
-              </MenuButton>
-              <Menu placement="bottom-end">
-                <MenuItem onClick={handleGetCoinClick}>
-                  <ListItemDecorator>
-                    <Edit />
-                  </ListItemDecorator>{" "}
-                  Get Coin
-                </MenuItem>
-
-                <MenuItem>
-                  <ListItemDecorator>
-                    <PersonIcon />
-                  </ListItemDecorator>{" "}
-                  My page
-                </MenuItem>
-                <MenuItem>
-                  <ListItemDecorator>
-                    <LogoutIcon />
-                  </ListItemDecorator>{" "}
-                  Log out
-                </MenuItem>
-              </Menu>
-            </Dropdown>
-            {/* 로그인시 안보이게 할것 */}
-            <ListItem role="none">
-              <ListItemButton
-                role="menuitem"
-                component={Link}
-                to="/signin"
-                sx={style.btnStyle}
-              >
-                Log in
-              </ListItemButton>
-            </ListItem>
-            {/* 로그인시 안보이게 할것 */}
-            <ListItem role="none">
-              <ListItemButton
-                role="menuitem"
-                component={Link}
-                to="/signUp"
-                sx={style.btnStyle}
-              >
-                Sign up
-              </ListItemButton>
-            </ListItem>
+                  <MenuItem>
+                    <ListItemDecorator>
+                      <PersonIcon />
+                    </ListItemDecorator>{" "}
+                    My page
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemDecorator>
+                      <LogoutIcon />
+                    </ListItemDecorator>{" "}
+                    Log out
+                  </MenuItem>
+                </Menu>
+              </Dropdown>
+            )}
+            {!isAuthorized && !myInfo && (
+              <ListItem role="none">
+                <ListItemButton
+                  role="menuitem"
+                  component={Link}
+                  to="/signin"
+                  sx={style.btnStyle}
+                >
+                  Log in
+                </ListItemButton>
+              </ListItem>
+            )}
+            {!isAuthorized && !myInfo && (
+              <ListItem role="none">
+                <ListItemButton
+                  role="menuitem"
+                  component={Link}
+                  to="/signUp"
+                  sx={style.btnStyle}
+                >
+                  Sign up
+                </ListItemButton>
+              </ListItem>
+            )}
           </Box>
         </List>
       </Box>
