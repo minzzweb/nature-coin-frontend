@@ -18,6 +18,7 @@ import NotFound from "./components/NotFound";
 import ItemListContainer from "./containers/ItemListContainer";
 import CategoryContainer from "./containers/CategoryContainer";
 import SignInContainer from "./containers/SignInContainer";
+import AdminSetupContainer from "./containers/AdminSetupContainer";
 
 function App() {
   return (
@@ -37,8 +38,13 @@ function App() {
         {/*아이템 게시판*/}
         <Route path="/items" element={<ItemListContainer />} />
 
+        {/*로그인, 회원가입*/}
         <Route path="/signin" element={<SignInContainer />} />
         <Route path="/signup" element={<SignUpContainer />} />
+
+        {/*관리자*/}
+        {/* <Route path="/signin" element={<SignInContainer />} /> */}
+        <Route path="/member/setup" element={<AdminSetupContainer />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
