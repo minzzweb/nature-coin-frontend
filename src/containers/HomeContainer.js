@@ -4,7 +4,7 @@ import HomeSection from "../components/Home/HomeSection";
 const HomeContainer = () => {
   return (
     <>
-      <HomeBackground />;
+      <HomeBackground />
       <HomeSection />
     </>
   );
