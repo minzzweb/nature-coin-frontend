@@ -18,7 +18,13 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ myInfo, isAuthorized, onLogout }) {
+export default function Header({
+  myInfo,
+  isAuthorized,
+  onLogout,
+  isAdmin,
+  isMember,
+}) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -125,7 +131,7 @@ export default function Header({ myInfo, isAuthorized, onLogout }) {
 
           <Box sx={style.BoxRight}>
             {/* 로그아웃 시 안보이게 할것 */}
-            {isAuthorized && myInfo && (
+            {isAuthorized && isMember && (
               <ListItem role="none">
                 <ListItemButton
                   role="menuitem"
@@ -140,7 +146,7 @@ export default function Header({ myInfo, isAuthorized, onLogout }) {
                 </ListItemButton>
               </ListItem>
             )}
-            {isAuthorized && myInfo && (
+            {isAuthorized && isMember && (
               <Dropdown>
                 <MenuButton
                   slots={{ root: IconButton }}
@@ -173,6 +179,34 @@ export default function Header({ myInfo, isAuthorized, onLogout }) {
                 </Menu>
               </Dropdown>
             )}
+            {isAuthorized && isAdmin && (
+              <Dropdown>
+                <MenuButton
+                  slots={{ root: IconButton }}
+                  slotProps={{
+                    root: { variant: "outlined", color: "neutral" },
+                  }}
+                  sx={style.myBtn}
+                >
+                  <MoreVert />
+                </MenuButton>
+                <Menu placement="bottom-end">
+                  <MenuItem onClick={handleMypageClick}>
+                    <ListItemDecorator>
+                      <PersonIcon />
+                    </ListItemDecorator>{" "}
+                    게시글 관리
+                  </MenuItem>
+                  <MenuItem onClick={onLogout}>
+                    <ListItemDecorator>
+                      <LogoutIcon />
+                    </ListItemDecorator>{" "}
+                    Log out
+                  </MenuItem>
+                </Menu>
+              </Dropdown>
+            )}
+
             {!isAuthorized && !myInfo && (
               <ListItem role="none">
                 <ListItemButton
