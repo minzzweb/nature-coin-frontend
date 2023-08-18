@@ -28,3 +28,6 @@ export const adminSetup = (email, nickname, password) =>
 
 //로그인 정보
 export const getMyInfo = () => client.get("/users/myinfo");
+
+//회원 상세
+export const fetchMemberApi = (userNo) => client.get(`/users/${userNo}`);
