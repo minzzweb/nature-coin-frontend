@@ -51,8 +51,6 @@ const ImageModifyForm = ({
     [onModify, imageTitle, imageContent, , file]
   );
 
-  //기존 데이터 가져오기
-  // 마운트될 때 기존의 상품명, 가격, 상품설명을 가져옴
   useEffect(() => {
     if (image) {
       setImageTitle(image.imageTitle);
