@@ -20,6 +20,7 @@ import CategoryContainer from "./containers/CategoryContainer";
 import SignInContainer from "./containers/SignInContainer";
 import AdminSetupContainer from "./containers/AdminSetupContainer";
 import MyPageContainer from "./containers/MyPageContainer";
+import ModifyProfileContainer from "./containers/ModifyProfileContainer";
 
 function App() {
   return (
@@ -44,7 +45,11 @@ function App() {
         <Route path="/signup" element={<SignUpContainer />} />
 
         {/*마이페이지*/}
-        <Route path="/member/mypage" element={<MyPageContainer />} />
+        <Route path="/member/mypage/:userNo" element={<MyPageContainer />} />
+        <Route
+          path="/member/mypage/edit/:userNo"
+          element={<ModifyProfileContainer />}
+        />
 
         {/*관리자*/}
         <Route path="/member/setup" element={<AdminSetupContainer />} />
