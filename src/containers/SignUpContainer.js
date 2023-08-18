@@ -21,7 +21,7 @@ const SignUpContainer = () => {
         autoClose: 2000,
       });
       setTimeout(() => {
-        navigate("/login");
+        navigate("/signin");
       }, 2000);
     } catch (e) {
       toast.error(e.response.data.message, {
