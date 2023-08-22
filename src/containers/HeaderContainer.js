@@ -5,9 +5,11 @@ import { getAuthorized, isAdmin, isMember } from "../modules/selector"; //로그
 import { setAccessToken, setMyInfo } from "../modules/auth";
 import client from "../lib/client";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const HeaderContainer = ({ isAuthorized, myInfo, isAdmin, isMember }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //로그아웃 함수
   const onLogout = () => {
@@ -15,6 +17,8 @@ const HeaderContainer = ({ isAuthorized, myInfo, isAdmin, isMember }) => {
     Cookies.remove("accessToken");
     dispatch(setAccessToken(""));
     dispatch(setMyInfo(null));
+
+    navigate("/");
   };
 
   return (
