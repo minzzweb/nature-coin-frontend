@@ -5,7 +5,7 @@ import {
   fetchMainImageList,
   FETCH_MAINIMAGE_LIST,
 } from "../../modules/imageboard";
-
+import Typography from "@mui/joy/Typography";
 const HomeSection = () => {
   const dispatch = useDispatch();
 
@@ -18,6 +18,19 @@ const HomeSection = () => {
     dispatch(fetchMainImageList());
   }, [dispatch]);
 
-  return <HomePosts images={images} isLoading={isLoading} />;
+  return (
+    <>
+      <Typography
+        level="h2"
+        sx={{
+          color: "#EA9A3E",
+          margin: "30px 0px",
+        }}
+      >
+        Recent Images
+      </Typography>
+      <HomePosts images={images} isLoading={isLoading} />;
+    </>
+  );
 };
 export default HomeSection;

@@ -5,15 +5,14 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Typography from "@mui/joy/Typography";
 
-const ImagePosts = ({ images, categoryName, isLoading }) => {
+const Image = ({ images, isLoading }) => {
   const pictureUrl = (imageId) => {
     return (
       "/image/display?imageId=" + imageId + "&timestamp=" + new Date().getTime()
     );
   };
+
   return (
     <Box
       sx={{
@@ -24,19 +23,7 @@ const ImagePosts = ({ images, categoryName, isLoading }) => {
       {isLoading && "로딩중..."}
       {!isLoading && images && (
         <ImageList sx={{ width: 1200, overflow: "hidden" }}>
-          <ImageListItem key="Subheader" cols={4}>
-            <ListSubheader component="div">
-              <Typography
-                level="h3"
-                sx={{
-                  color: "#EA9A3E",
-                  marginBottom: "30px",
-                }}
-              >
-                {categoryName}
-              </Typography>
-            </ListSubheader>
-          </ImageListItem>
+          <ImageListItem key="Subheader" cols={4}></ImageListItem>
           {images.map((image) => (
             <Link to={"/image/read/" + image.imageId} key={image.imageId}>
               <ImageListItem sx={{ height: 300, width: 300 }}>
@@ -69,4 +56,5 @@ const ImagePosts = ({ images, categoryName, isLoading }) => {
     </Box>
   );
 };
-export default ImagePosts;
+
+export default Image;
