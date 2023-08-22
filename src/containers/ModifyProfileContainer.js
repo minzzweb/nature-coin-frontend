@@ -10,10 +10,13 @@ const ModifyProfileContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { member, isLoading } = useSelector(({ member, loading }) => ({
-    member: member.member,
-    isLoading: loading[FETCH_MEMBER_ONE],
-  }));
+  const { member, isLoading, myInfo } = useSelector(
+    ({ member, loading, auth }) => ({
+      member: member.member,
+      isLoading: loading[FETCH_MEMBER_ONE],
+      myInfo: auth.myInfo,
+    })
+  );
 
   useEffect(() => {
     dispatch(fetchMember(userNo));
@@ -55,6 +58,7 @@ const ModifyProfileContainer = () => {
       member={member}
       isLoading={isLoading}
       onModify={onModify}
+      myInfo={myInfo}
     />
   );
 };

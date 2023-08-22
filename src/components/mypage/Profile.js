@@ -14,10 +14,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-const Profile = ({ member, isLoading, userNo, myImageList, myItemList }) => {
+const Profile = ({ member, isLoading, myInfo, myImageList, myItemList }) => {
   const pictureUrl = () => {
     return (
-      "/users/display?userNo=" + userNo + "&timestamp=" + new Date().getTime()
+      "/users/display?email=" +
+      myInfo.email +
+      "&timestamp=" +
+      new Date().getTime()
     );
   };
 

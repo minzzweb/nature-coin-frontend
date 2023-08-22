@@ -11,14 +11,17 @@ import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 
-const ProfileModifyForm = ({ userNo, member, isLoading, onModify }) => {
+const ProfileModifyForm = ({ member, isLoading, onModify, myInfo }) => {
   const [nickname, setNickname] = useState("");
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState("");
 
   const pictureUrl = () => {
     return (
-      "/users/display?userNo=" + userNo + "&timestamp=" + new Date().getTime()
+      "/users/display?email=" +
+      myInfo.email +
+      "&timestamp=" +
+      new Date().getTime()
     );
   };
 

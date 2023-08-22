@@ -9,10 +9,13 @@ const MyPageContainer = () => {
   const { userNo } = useParams();
   const dispatch = useDispatch();
 
-  const { member, isLoading } = useSelector(({ member, loading }) => ({
-    member: member.member,
-    isLoading: loading[FETCH_MEMBER_ONE],
-  }));
+  const { member, isLoading, myInfo } = useSelector(
+    ({ member, loading, auth }) => ({
+      member: member.member,
+      isLoading: loading[FETCH_MEMBER_ONE],
+      myInfo: auth.myInfo,
+    })
+  );
 
   useEffect(() => {
     dispatch(fetchMember(userNo));
@@ -34,6 +37,7 @@ const MyPageContainer = () => {
         isLoading={isLoading}
         userNo={userNo}
         myImageList={myImageList}
+        myInfo={myInfo}
         myItemList={myItemList}
       />
       <MyList />

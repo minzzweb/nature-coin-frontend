@@ -36,7 +36,8 @@ const ImageModifyContainer = () => {
     formData.append("image", JSON.stringify(imageObject));
 
     try {
-      const response = await modifyImageApi(imageId, formData);
+      const response = await modifyImageApi(formData);
+
       alert("수정이 완료되었습니다.");
       navigate("/image/read/" + response.data.imageId);
     } catch (e) {

@@ -9,8 +9,8 @@ export const registImageApi = (formData) =>
   });
 
 //이미지 수정
-export const modifyImageApi = (imageId, formData) =>
-  client.put(`/image/$imageId`, formData, {
+export const modifyImageApi = (formData) =>
+  client.put("/image", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

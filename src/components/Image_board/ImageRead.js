@@ -23,6 +23,15 @@ const ImageRead = ({
     );
   };
 
+  const profilepictureUrl = () => {
+    return (
+      "/users/display?email=" +
+      myInfo.email +
+      "&timestamp=" +
+      new Date().getTime()
+    );
+  };
+
   //게시글  소유자 확인
   let isOwn = false;
   if (myInfo && image) {
@@ -70,7 +79,7 @@ const ImageRead = ({
                     }}
                   >
                     <img
-                      src={cat}
+                      src={profilepictureUrl()}
                       style={{
                         width: "50px",
                         height: "50px",
