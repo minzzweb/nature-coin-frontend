@@ -1,4 +1,3 @@
-import axios from "axios";
 import client from "./client";
 
 //이미지 등록
@@ -25,14 +24,14 @@ export const removeImageApi = (imageId) => client.delete(`/image/${imageId}`);
 
 //이미지 카테고리별 목록
 export const fetchItemListByCategoryApi = (categoryName) =>
-  axios.get(`/image/list/${categoryName}`);
+  client.get(`/image/list/${categoryName}`);
 
 //이미지 메인 목록
 export const fetchItemListApi = () => client.get("/image");
 
 //회원가입
 export const signUp = (email, nickname, password) =>
-  axios.post("/users", { email, nickname, password });
+  client.post("/users", { email, nickname, password });
 
 //로그인
 export const signIn = (email, password) =>
@@ -49,8 +48,8 @@ export const getMyInfo = () => client.get("/users/myinfo");
 export const fetchMemberApi = (userNo) => client.get(`/users/${userNo}`);
 
 //회원수정
-export const modifyMemberApi = (userNo, formData) =>
-  client.put(`/users/${userNo}`, formData, {
+export const modifyMemberApi = (formData) =>
+  client.put("/users", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

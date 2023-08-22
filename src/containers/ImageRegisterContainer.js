@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import ImageRegisterForm from "../components/Image_board/ImageRegisterForm";
 import { registImageApi } from "../lib/api";

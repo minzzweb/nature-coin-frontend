@@ -3,7 +3,7 @@ import ImageModifyForm from "../components/Image_board/ImageModifyForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchImage, FETCH_IMAGE } from "../modules/imageboard";
-import axios from "axios";
+import { modifyImageApi } from "../lib/api";
 
 const ImageModifyContainer = () => {
   const { imageId } = useParams();
@@ -24,7 +24,7 @@ const ImageModifyContainer = () => {
   }, [dispatch, imageId]);
 
   //수정함수
-  const onModify = (imageTitle, imageContent, file) => {
+  const onModify = async (imageTitle, imageContent, file) => {
     const imageObject = {
       imageId: imageId,
       imageTitle: imageTitle,
@@ -35,19 +35,23 @@ const ImageModifyContainer = () => {
     formData.append("file", file);
     formData.append("image", JSON.stringify(imageObject));
 
-    axios
-      .put("/image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        alert("수정되었습니다.");
-        navigate("/image/read/" + imageId);
-      })
-      .catch((err) => {
-        alert(err.response.data.msg);
-      });
+    try {
+      const response = await modifyImageApi(imageId, formData);
+      alert("수정이 완료되었습니다.");
+      navigate("/image/read/" + response.data.imageId);
+    } catch (e) {
+      if (e.response.status === 400) {
+        alert("잘못된 요청입니다.");
+      } else if (e.response.status === 401) {
+        alert("로그인이 필요합니다.");
+        navigate("/signin");
+      } else if (e.response.status === 403) {
+        alert("접근 권한이 없습니다.");
+        navigate.goBack();
+      } else {
+        alert(e.response.data.message);
+      }
+    }
   };
 
   return (
