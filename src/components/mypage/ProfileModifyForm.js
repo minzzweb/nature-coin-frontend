@@ -10,6 +10,7 @@ import { Box } from "@mui/material";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
+
 const ProfileModifyForm = ({ userNo, member, isLoading, onModify }) => {
   const [nickname, setNickname] = useState("");
   const [file, setFile] = useState();

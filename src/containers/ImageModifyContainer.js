@@ -10,11 +10,12 @@ const ImageModifyContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { image, categoryName, isLoading } = useSelector(
-    ({ image, loading }) => ({
+  const { image, categoryName, isLoading, myInfo } = useSelector(
+    ({ image, loading, auth }) => ({
       image: image.image,
       categoryName: image.categoryName,
       isLoading: loading[FETCH_IMAGE],
+      myInfo: auth.myInfo,
     })
   );
 
@@ -56,6 +57,7 @@ const ImageModifyContainer = () => {
       isLoading={isLoading}
       categoryName={categoryName}
       onModify={onModify}
+      myInfo={myInfo}
     />
   );
 };

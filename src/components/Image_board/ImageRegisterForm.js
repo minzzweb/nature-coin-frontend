@@ -10,7 +10,6 @@ import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
 
 const ImageRegisterForm = ({ onRegister }) => {
-  
   const categories = {
     1: "Transportation",
     2: "Cafe",
@@ -20,6 +19,7 @@ const ImageRegisterForm = ({ onRegister }) => {
   const [categoryId, setCategoryId] = useState("");
   const [imageTitle, setImageTitle] = useState("");
   const [imageContent, setImageContent] = useState("");
+
   const [file, setFile] = useState(null);
 
   const handleChangeCategory = (e, newValue) => {

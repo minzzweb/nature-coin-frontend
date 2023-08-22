@@ -13,6 +13,7 @@ const ImageModifyForm = ({
   categoryName,
   isLoading,
   onModify,
+  myInfo,
 }) => {
   const [imageTitle, setImageTitle] = useState("");
   const [imageContent, setImageContent] = useState("");
@@ -62,6 +63,14 @@ const ImageModifyForm = ({
       }
     }
   }, [image]);
+
+  // 게시글 소유자 확인
+  let isOwn = false;
+  if (myInfo && image) {
+    if (myInfo.nickname === image.imageWriter) {
+      isOwn = true;
+    }
+  }
   return (
     <Box
       sx={{
@@ -152,6 +161,12 @@ const ImageModifyForm = ({
                     ></Textarea>
                   </td>
                 </tr>
+                <tr>
+                  <td>작성자</td>
+                  <td>
+                    <input type="text" value={image.imageWriter} disabled />
+                  </td>
+                </tr>
               </tbody>
             </Table>
             <Box
@@ -160,15 +175,17 @@ const ImageModifyForm = ({
                 justifyContent: "flex-end",
               }}
             >
-              <Button
-                type="submit"
-                sx={{
-                  backgroundColor: "#A1E8A1",
-                  marginRight: "5px",
-                }}
-              >
-                등록
-              </Button>
+              {isOwn && (
+                <Button
+                  type="submit"
+                  sx={{
+                    backgroundColor: "#A1E8A1",
+                    marginRight: "5px",
+                  }}
+                >
+                  등록
+                </Button>
+              )}
               <Button
                 component={Link}
                 to="/"

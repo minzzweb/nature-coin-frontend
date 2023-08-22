@@ -8,13 +8,29 @@ import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
 import Table from "@mui/joy/Table";
 
-const ImageRead = ({ imageId, image, isLoading, categoryName, onRemove }) => {
+const ImageRead = ({
+  imageId,
+  image,
+  isLoading,
+  categoryName,
+  onRemove,
+  myInfo,
+}) => {
   // 이미지 표시 URL 생성
   const pictureUrl = () => {
     return (
       "/image/display?imageId=" + imageId + "&timestamp=" + new Date().getTime()
     );
   };
+
+  //게시글  소유자 확인
+  let isOwn = false;
+  if (myInfo && image) {
+    if (myInfo.nickname === image.imageWriter) {
+      isOwn = true;
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -125,30 +141,33 @@ const ImageRead = ({ imageId, image, isLoading, categoryName, onRemove }) => {
               justifyContent: "flex-end",
             }}
           >
-            <Button
-              component={Link}
-              to={`/image/edit/${imageId}`}
-              size="sm"
-              sx={{
-                backgroundColor: "#CDD7E1",
-                height: "36px",
-              }}
-            >
-              {/*글쓴자만 보이게!*/}
-              편집
-            </Button>
-            <Button
-              onClick={onRemove}
-              size="sm"
-              sx={{
-                backgroundColor: "#CDD7E1",
-                height: "40px",
-                margin: "0px 3px",
-              }}
-            >
-              {/*글쓴자만 보이게!*/}
-              삭제
-            </Button>
+            {isOwn && (
+              <Button
+                component={Link}
+                to={`/image/edit/${imageId}`}
+                size="sm"
+                sx={{
+                  backgroundColor: "#CDD7E1",
+                  height: "36px",
+                }}
+              >
+                편집
+              </Button>
+            )}
+            {isOwn && (
+              <Button
+                onClick={onRemove}
+                size="sm"
+                sx={{
+                  backgroundColor: "#CDD7E1",
+                  height: "40px",
+                  margin: "0px 3px",
+                }}
+              >
+                {/*글쓴자만 보이게!*/}
+                삭제
+              </Button>
+            )}
             <Button
               component={Link}
               to={"/image/list/" + categoryName}
