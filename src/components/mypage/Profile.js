@@ -14,7 +14,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-const Profile = ({ member, isLoading, myInfo, myImageList, myItemList }) => {
+const Profile = ({
+  member,
+  isLoading,
+  myInfo,
+  myImageList,
+  myItemList,
+  isAuthorized,
+  isAdmin,
+  isMember,
+  imageListAll,
+}) => {
   const pictureUrl = () => {
     return (
       "/users/display?email=" +
@@ -66,24 +76,38 @@ const Profile = ({ member, isLoading, myInfo, myImageList, myItemList }) => {
               Edit
             </Link>
           </Box>
-          <List sx={{ display: "flex" }}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <KeyboardArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText primary="내 이미지 보기" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <KeyboardArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText primary="내가 산 기프티콘 보기" />
-              </ListItemButton>
-            </ListItem>
-          </List>
+          {isAuthorized && isMember && (
+            <List sx={{ display: "flex" }}>
+              <ListItem disablePadding>
+                <ListItemButton onClick={myImageList}>
+                  <ListItemIcon>
+                    <KeyboardArrowRightIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="내 이미지 보기" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <KeyboardArrowRightIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="내가 산 기프티콘 보기" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          )}
+          {isAuthorized && isAdmin && (
+            <List sx={{ display: "flex" }}>
+              <ListItem disablePadding>
+                <ListItemButton onClick={imageListAll}>
+                  <ListItemIcon>
+                    <KeyboardArrowRightIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="전체 이미지 게시글 보기" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          )}
         </Card>
       )}
     </Box>

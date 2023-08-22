@@ -32,7 +32,7 @@ const ImageRegisterContainer = () => {
         navigete("/signin");
       } else if (e.response.status === 403) {
         alert("접근 권한이 없습니다.");
-        navigete();
+        navigete.goBack();
       } else {
         alert(e.response.data.message);
       }

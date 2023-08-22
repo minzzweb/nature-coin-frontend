@@ -15,6 +15,7 @@ const ImageRead = ({
   categoryName,
   onRemove,
   myInfo,
+  isMyPage,
 }) => {
   // 이미지 표시 URL 생성
   const pictureUrl = () => {
@@ -179,7 +180,11 @@ const ImageRead = ({
             )}
             <Button
               component={Link}
-              to={"/image/list/" + categoryName}
+              to={
+                isMyPage
+                  ? `/member/mypage/${myInfo.userNo}`
+                  : `/image/list/${categoryName}`
+              }
               size="sm"
               sx={{
                 backgroundColor: "#CDD7E1",

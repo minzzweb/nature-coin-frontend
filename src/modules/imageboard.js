@@ -5,6 +5,7 @@ import {
   fetchImageApi,
   fetchItemListByCategoryApi,
   fetchItemListApi,
+  fetchMyImageListApi,
 } from "../lib/api";
 //로딩
 import { startLoading, endLoading } from "../modules/loading";
@@ -16,33 +17,47 @@ export const FETCH_LIST_SUCCESS = "image/FETCH_LIST_SUCCESS";
 export const FETCH_LIST_FAILURE = "image/FETCH_LIST_FAILURE";
 export const FETCH_MAIN_LIST_SUCCESS = "image/FETCH_MAIN_LIST_SUCCESS";
 export const FETCH_MAIN_LIST_FAILURE = "image/FETCH_MAIN_LIST_FAILURE";
+export const FETCH_MYIMAGELIST_SUCCESS = "image/FETCH_MYIMAGELIST_SUCCESS";
+export const FETCH_MYIMAGELIST_FAILURE = "image/FETCH_MYIMAGELIST_FAILURE";
 
 export const FETCH_IMAGE = "image/FETCH_IMAGE";
 export const FETCH_IMAGE_LIST = "image/FETCH_IMAGE_LIST";
-export const FETCH_MAINIMAGE_LIST = "FETCH_MAINIMAGE_LIST";
+export const FETCH_MAINIMAGE_LIST = "image/FETCH_MAINIMAGE_LIST";
+export const FETCH_MYIMAGE_LIST = "image/FETCH_MYIMAGE_LIST";
 
 //액션 생성함수
-//이미지게시판 상세
+//이미지게시판 상세------------------------------------------------------------
 export const fetchSuccess = createAction(
   FETCH_SUCCESS,
   (image, categoryName) => ({ image, categoryName })
 );
 export const fetchFailure = createAction(FETCH_FAILURE, (e) => e);
 
-//이미지게시판 목록
+//이미지게시판 목록------------------------------------------------------------
 export const fetchListSuccess = createAction(
   FETCH_LIST_SUCCESS,
   (data) => data
 );
 export const fetchListFailure = createAction(FETCH_LIST_FAILURE, (e) => e);
 
-//메인 목록
+//메인 목록-----------------------------------------------------------------
 export const fetchMainListSuccess = createAction(
   FETCH_MAIN_LIST_SUCCESS,
   (data) => data
 );
 export const fetchMainListFailure = createAction(
   FETCH_MAIN_LIST_FAILURE,
+  (e) => e
+);
+
+//마이페이지 목록------------------------------------------------------------
+export const fetchMyImageListSuccess = createAction(
+  FETCH_MYIMAGELIST_SUCCESS,
+  (data) => data
+);
+
+export const fetchMyImageLisFailure = createAction(
+  FETCH_MYIMAGELIST_FAILURE,
   (e) => e
 );
 
@@ -53,6 +68,10 @@ export const fetchImageList = createAction(
   (categoryName) => categoryName
 );
 export const fetchMainImageList = createAction(FETCH_MAINIMAGE_LIST);
+export const fetchMyImageList = createAction(
+  FETCH_MYIMAGE_LIST,
+  (nickname) => nickname
+);
 
 //상품 상세 조회 테스크 작성
 function* fetchImageSaga(action) {
@@ -92,10 +111,23 @@ function* fetchMainImageListSaga() {
   yield put(endLoading(FETCH_MAINIMAGE_LIST));
 }
 
+//마이페이지 목록
+function* fetchMyImageListSaga(action) {
+  yield put(startLoading(FETCH_MYIMAGE_LIST));
+  try {
+    const response = yield call(fetchMyImageListApi, action.payload);
+    yield put(fetchMyImageListSuccess(response.data));
+  } catch (e) {
+    yield put(fetchMyImageLisFailure(e));
+  }
+  yield put(endLoading(FETCH_MYIMAGE_LIST));
+}
+
 export function* imageSaga() {
   yield takeLatest(FETCH_IMAGE, fetchImageSaga);
   yield takeLatest(FETCH_IMAGE_LIST, fetchImageListSaga);
   yield takeLatest(FETCH_MAINIMAGE_LIST, fetchMainImageListSaga);
+  yield takeLatest(FETCH_MYIMAGE_LIST, fetchMyImageListSaga);
 }
 
 // 초기 상태
@@ -131,6 +163,14 @@ const image = handleActions(
       images: action.payload,
     }),
     [FETCH_MAIN_LIST_FAILURE]: (state, action) => ({
+      ...state,
+      error: action.payload,
+    }),
+    [FETCH_MYIMAGELIST_SUCCESS]: (state, action) => ({
+      ...state,
+      images: action.payload,
+    }),
+    [FETCH_MYIMAGELIST_FAILURE]: (state, action) => ({
       ...state,
       error: action.payload,
     }),

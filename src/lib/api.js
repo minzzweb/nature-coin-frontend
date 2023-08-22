@@ -54,3 +54,7 @@ export const modifyMemberApi = (formData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+//회원 이미지 게시글 목록
+export const fetchMyImageListApi = (nickname) =>
+  client.get(`/image/mypage/list/myimage/${nickname}`);
