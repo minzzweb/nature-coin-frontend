@@ -1,5 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
-import { grantCoinsToUserApi } from "../lib/api";
+
 import { takeLatest, call, put } from "redux-saga/effects";
 import { startLoading, endLoading } from "../modules/loading";
 
@@ -24,7 +24,7 @@ const fetchCoinListfailure = createAction(
 function* fetchCoinListSaga() {
   yield put(startLoading(FETCH_GRANTCOIN_LIST));
   try {
-    const response = yield call(grantCoinsToUserApi);
+    const response = yield call("충전내역 가져오는 api추가");
     yield put(fetchCoinListSuccess(response.data));
   } catch (e) {
     yield put(fetchCoinListfailure(e));

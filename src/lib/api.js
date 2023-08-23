@@ -62,3 +62,7 @@ export const fetchMyImageListApi = (nickname) =>
 //코인 적립
 export const grantCoinsToUserApi = (imageId, imagewriter, amount) =>
   client.post("/coins", { imageId, imagewriter, amount });
+
+//아이템 구매
+export const buyItemApi = (itemId, itemName, price) =>
+  client.post("/items/buy", { itemId, itemName, price });

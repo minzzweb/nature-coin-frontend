@@ -8,34 +8,40 @@ import item6 from "../../assets/items/item6.png";
 //더미 데이터
 const itemsData = [
   {
+    itemId: 1,
+    itemName: "스타벅스 세트1",
+    price: 8000,
     img: item1,
-    title: "스타벅스 세트1",
-    coin: 8000,
   },
   {
+    itemId: 2,
+    itemName: "스타벅스 음료1",
+    price: 4000,
     img: item2,
-    title: "스타벅스 음료1",
-    coin: 4000,
   },
   {
+    itemId: 3,
+    itemName: "스타벅스 세트1",
+    price: 16000,
     img: item3,
-    title: "스타벅스 세트1",
-    coin: 16000,
   },
   {
+    itemId: 4,
+    itemName: "베스킨라빈스 케익",
+    price: 20000,
     img: item4,
-    title: "베스킨라빈스 케익",
-    coin: 20000,
   },
   {
+    itemId: 5,
+    itemName: "스타벅스 음료2",
+    price: 7000,
     img: item5,
-    title: "스타벅스 음료2",
-    coin: 7000,
   },
   {
+    itemId: 6,
+    itemName: "베스킨라빈스 싱글",
+    price: 2000,
     img: item6,
-    title: "베스킨라빈스 싱글",
-    coin: 2000,
   },
 ];
 

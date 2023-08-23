@@ -9,10 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import Typography from "@mui/joy/Typography";
 
-const ItemList = ({ itemsData }) => {
-  const testFn = (item) => {
-    console.log("뭘 구현할지!!!", item);
-  };
+const ItemList = ({ itemsData, onBuy }) => {
   return (
     <Box
       sx={{
@@ -34,11 +31,11 @@ const ItemList = ({ itemsData }) => {
       </Typography>
       <ImageList sx={{ width: "1160px", overflow: "hidden" }} cols={5} gap={1}>
         {itemsData.map((item) => (
-          <ImageListItem key={item.img} sx={{ marginBottom: "30px" }}>
+          <ImageListItem key={item.itemId} sx={{ marginBottom: "30px" }}>
             <img
               src={`${item.img}?w=248&fit=crop&auto=format`}
               srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
+              alt={item.itemName}
               loading="lazy"
               style={{
                 objectFit: "cover", //
@@ -49,14 +46,14 @@ const ItemList = ({ itemsData }) => {
               }}
             />
             <ImageListItemBar
-              title={item.title}
-              subtitle={<span>coin: {item.coin}</span>}
+              title={item.itemName}
+              subtitle={<span>coin: {item.price}</span>}
               position="below"
             />
             <Button
               variant="contained"
               href="#contained-buttons"
-              onClick={() => testFn(item)}
+              onClick={() => onBuy(item.itemId, item.itemName, item.price)}
               sx={{
                 backgroundColor: "#A1E8A1",
                 width: "90px",
