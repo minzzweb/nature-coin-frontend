@@ -58,3 +58,7 @@ export const modifyMemberApi = (formData) =>
 //회원 이미지 게시글 목록
 export const fetchMyImageListApi = (nickname) =>
   client.get(`/image/mypage/list/myimage/${nickname}`);
+
+//코인 적립
+export const grantCoinsToUserApi = (imageId, imagewriter, amount) =>
+  client.post("/coins", { imageId, imagewriter, amount });

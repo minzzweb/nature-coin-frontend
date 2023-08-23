@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
-import Typography from "@mui/joy/Typography";
-import Input from "@mui/joy/Input";
-import cat from "../../assets/cat.png";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
 import Table from "@mui/joy/Table";
+import axios from "axios";
 
 const ImageRead = ({
   imageId,
@@ -16,6 +14,7 @@ const ImageRead = ({
   onRemove,
   myInfo,
   isMyPage,
+  onGrantCoin,
 }) => {
   // 이미지 표시 URL 생성
   const pictureUrl = () => {
@@ -39,6 +38,11 @@ const ImageRead = ({
     if (myInfo.nickname === image.imageWriter) {
       isOwn = true;
     }
+  }
+
+  let isAdmin = false;
+  if (myInfo && myInfo.authList[0].auth === "ROLE_ADMIN") {
+    isAdmin = true;
   }
 
   return (
@@ -164,7 +168,7 @@ const ImageRead = ({
                 편집
               </Button>
             )}
-            {isOwn && (
+            {(isOwn || isAdmin) && (
               <Button
                 onClick={onRemove}
                 size="sm"
@@ -176,6 +180,20 @@ const ImageRead = ({
               >
                 {/*글쓴자만 보이게!*/}
                 삭제
+              </Button>
+            )}
+            {isAdmin && (
+              <Button
+                onClick={onGrantCoin}
+                size="sm"
+                sx={{
+                  backgroundColor: "#A1E8A1",
+                  height: "40px",
+                  margin: "0px 3px",
+                }}
+              >
+                {/*글쓴자만 보이게!*/}
+                코인 적립
               </Button>
             )}
             <Button

@@ -5,6 +5,7 @@ import ImageRead from "../components/Image_board/ImageRead";
 import { useParams } from "react-router-dom";
 import { removeImageApi } from "../lib/api";
 import { useNavigate } from "react-router-dom";
+import { grantCoinsToUserApi } from "../lib/api";
 
 const ImageReadContainer = () => {
   const { imageId } = useParams();
@@ -34,6 +35,17 @@ const ImageReadContainer = () => {
       console.log(e);
     }
   };
+
+  //코인 적립 함수
+  const onGrantCoin = async () => {
+    try {
+      await grantCoinsToUserApi(image.imageId, image.imageWriter, 500);
+      alert("코인이 적립되었습니다.");
+    } catch (error) {
+      console.log("Error granting coins:", error);
+    }
+  };
+
   return (
     <ImageRead
       imageId={imageId}
@@ -42,6 +54,7 @@ const ImageReadContainer = () => {
       categoryName={categoryName}
       onRemove={onRemove}
       myInfo={myInfo}
+      onGrantCoin={onGrantCoin}
     />
   );
 };
