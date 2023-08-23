@@ -26,8 +26,8 @@ const ImageRead = ({
 
   const profilepictureUrl = () => {
     return (
-      "/users/display?email=" +
-      myInfo.email +
+      "/image/display/profile?imageWriter=" +
+      image.imageWriter +
       "&timestamp=" +
       new Date().getTime()
     );
