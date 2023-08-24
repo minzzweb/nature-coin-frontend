@@ -73,7 +73,7 @@ export const fetchMyImageList = createAction(
   (nickname) => nickname
 );
 
-//상품 상세 조회 테스크 작성
+//상세 조회 테스크 작성
 function* fetchImageSaga(action) {
   yield put(startLoading(FETCH_IMAGE));
 

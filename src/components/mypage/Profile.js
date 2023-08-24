@@ -19,7 +19,7 @@ const Profile = ({
   isLoading,
   myInfo,
   myImageList,
-  myItemList,
+  userItemList,
   isAuthorized,
   isAdmin,
   isMember,
@@ -87,7 +87,7 @@ const Profile = ({
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={userItemList}>
                   <ListItemIcon>
                     <KeyboardArrowRightIcon />
                   </ListItemIcon>

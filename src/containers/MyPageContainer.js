@@ -6,27 +6,24 @@ import {
   fetchMyImageList,
   FETCH_MYIMAGE_LIST,
   fetchMainImageList,
-  FETCH_MAINIMAGE_LIST,
 } from "../modules/imageboard";
 import { getAuthorized, isAdmin, isMember } from "../modules/selector"; //로그인 여부
 import Profile from "../components/mypage/Profile";
 import MyList from "../components/mypage/MyList";
-import loading from "../modules/loading";
-import axios from "axios";
-
+import { fetchUserItemList, FETCH_USERITEMLIST } from "../modules/useritem";
 const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   const { userNo } = useParams();
   const dispatch = useDispatch();
 
-  const { member, isLoading, myInfo, images, isImageListLoading } = useSelector(
-    ({ member, loading, auth, image }) => ({
+  const { member, isLoading, myInfo, images, isImageListLoading, userItems } =
+    useSelector(({ member, loading, auth, image, useritem }) => ({
       member: member.member,
       isLoading: loading[FETCH_MEMBER_ONE],
       myInfo: auth.myInfo,
       images: image.images,
       isImageListLoading: loading[FETCH_MYIMAGE_LIST],
-    })
-  );
+      userItems: useritem.userItems,
+    }));
 
   //내 이미지 가져오기 함수
   const myImageList = async () => {
@@ -38,19 +35,26 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   const imageListAll = async () => {
     dispatch(fetchMainImageList());
   };
+
   useEffect(() => {
     dispatch(fetchMember(userNo));
+  }, [dispatch, userNo]);
+
+  useEffect(() => {
     if (myInfo && isMember) {
       myImageList();
     }
+  }, [myInfo, isMember]);
+
+  useEffect(() => {
     if (myInfo && isAdmin) {
       imageListAll();
     }
-  }, [dispatch, userNo]);
+  }, [myInfo, isAdmin]);
 
-  //내가 산 기프티콘 가져오기 함수
-  const myItemList = () => {
-    //..
+  //내가 산 기프티콘 가져오기 함
+  const userItemList = async () => {
+    dispatch(fetchUserItemList());
   };
 
   return (
@@ -61,7 +65,7 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
         userNo={userNo}
         myInfo={myInfo}
         myImageList={myImageList}
-        myItemList={myItemList}
+        userItemList={userItemList}
         isAuthorized={isAuthorized}
         isAdmin={isAdmin}
         isMember={isMember}

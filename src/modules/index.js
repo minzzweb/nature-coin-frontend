@@ -6,6 +6,7 @@ import auth, { authSaga } from "./auth";
 import loading from "./loading";
 import member, { memberSaga } from "./member";
 import coin, { coinSaga } from "./coin";
+import useritem, { userItemSaga } from "./useritem";
 
 const rootReducer = combineReducers({
   image,
@@ -13,10 +14,17 @@ const rootReducer = combineReducers({
   auth,
   member,
   coin,
+  useritem,
 });
 
 export function* rootSaga() {
-  yield all([imageSaga(), authSaga(), memberSaga(), coinSaga()]);
+  yield all([
+    imageSaga(),
+    authSaga(),
+    memberSaga(),
+    coinSaga(),
+    userItemSaga(),
+  ]);
 }
 
 export default rootReducer;

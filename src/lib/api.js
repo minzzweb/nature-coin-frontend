@@ -66,3 +66,6 @@ export const grantCoinsToUserApi = (imageId, imagewriter, amount) =>
 //아이템 구매
 export const buyItemApi = (itemId, itemName, price) =>
   client.post("/items/buy", { itemId, itemName, price });
+
+//내 상품 목록 가져오기
+export const fetchMyItemList = () => client.get("/useritems");
