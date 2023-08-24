@@ -1,7 +1,7 @@
 import Image from "../common/Image";
 
-const MyList = ({ images, isLoading }) => {
+const MyImageList = ({ images, isLoading }) => {
   return <Image images={images} isLoading={isLoading} />;
 };
 
-export default MyList;
+export default MyImageList;

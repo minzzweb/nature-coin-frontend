@@ -1,12 +1,24 @@
-import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/joy/Typography";
+import itemsData from "../item_board/itemsData";
+import useritem from "../../modules/useritem";
 
-const ItemList = ({ itemsData, onBuy }) => {
+const MyItemList = ({ userItems, isLoading }) => {
+  const combinedItems = userItems.map((userItem) => {
+    const matchingItem = itemsData.find(
+      (item) => item.itemId === userItem.itemId
+    );
+    return {
+      ...userItem,
+      ...matchingItem,
+    };
+  });
+
+  console.log(combinedItems);
   return (
     <Box
       sx={{
@@ -27,18 +39,18 @@ const ItemList = ({ itemsData, onBuy }) => {
         Buy gifticons with coins!
       </Typography>
       <ImageList sx={{ width: "1160px", overflow: "hidden" }} cols={5} gap={1}>
-        {itemsData.map((item) => (
-          <ImageListItem key={item.itemId} sx={{ marginBottom: "30px" }}>
+        {combinedItems.map((item) => (
+          <ImageListItem key={item.userItemNo} sx={{ marginBottom: "30px" }}>
             <img
               src={`${item.img}?w=248&fit=crop&auto=format`}
               srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={item.itemName}
               loading="lazy"
               style={{
-                objectFit: "cover", //
+                objectFit: "cover",
                 border: "1px solid #A1E8A1",
                 borderRadius: "15px",
-                width: "180px", // 이미지의 가로 크기 조절
+                width: "180px",
                 height: "180px",
               }}
             />
@@ -47,16 +59,24 @@ const ItemList = ({ itemsData, onBuy }) => {
               subtitle={<span>coin: {item.price}</span>}
               position="below"
             />
+            <Typography
+              sx={{
+                fontSize: "14px",
+                color: "#EA9A3E",
+                paddingBottom: "10px",
+              }}
+            >
+              구매날짜 : {item.regDate}
+            </Typography>
             <Button
               variant="contained"
               href="#contained-buttons"
-              onClick={() => onBuy(item.itemId, item.itemName, item.price)}
               sx={{
                 backgroundColor: "#A1E8A1",
                 width: "90px",
               }}
             >
-              구입하기
+              다운로드
             </Button>
           </ImageListItem>
         ))}
@@ -64,4 +84,5 @@ const ItemList = ({ itemsData, onBuy }) => {
     </Box>
   );
 };
-export default ItemList;
+
+export default MyItemList;

@@ -9,21 +9,31 @@ import {
 } from "../modules/imageboard";
 import { getAuthorized, isAdmin, isMember } from "../modules/selector"; //로그인 여부
 import Profile from "../components/mypage/Profile";
-import MyList from "../components/mypage/MyList";
+import MyImageList from "../components/mypage/MyImageList";
 import { fetchUserItemList, FETCH_USERITEMLIST } from "../modules/useritem";
+import MyItemList from "../components/mypage/MyItemList";
+
 const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   const { userNo } = useParams();
   const dispatch = useDispatch();
 
-  const { member, isLoading, myInfo, images, isImageListLoading, userItems } =
-    useSelector(({ member, loading, auth, image, useritem }) => ({
-      member: member.member,
-      isLoading: loading[FETCH_MEMBER_ONE],
-      myInfo: auth.myInfo,
-      images: image.images,
-      isImageListLoading: loading[FETCH_MYIMAGE_LIST],
-      userItems: useritem.userItems,
-    }));
+  const {
+    member,
+    isLoading,
+    myInfo,
+    images,
+    isImageListLoading,
+    isUseritemListLoading,
+    userItems,
+  } = useSelector(({ member, loading, auth, image, useritem }) => ({
+    member: member.member,
+    isLoading: loading[FETCH_MEMBER_ONE],
+    myInfo: auth.myInfo,
+    images: image.images,
+    isImageListLoading: loading[FETCH_MYIMAGE_LIST],
+    userItems: useritem.userItems,
+    isUseritemListLoading: loading[FETCH_USERITEMLIST],
+  }));
 
   //내 이미지 가져오기 함수
   const myImageList = async () => {
@@ -71,8 +81,8 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
         isMember={isMember}
         imageListAll={imageListAll}
       />
-
-      <MyList images={images} isLoading={isImageListLoading} />
+      <MyImageList images={images} isLoading={isImageListLoading} />
+      <MyItemList userItems={userItems} isLoading={isUseritemListLoading} />
     </>
   );
 };
