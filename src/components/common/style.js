@@ -303,6 +303,7 @@ const style = {
   },
   SignInBtn: {
     color: "#fff",
+    marginTop: "20px",
     backgroundColor: "#A1E8A1",
     "&:hover": {
       color: "#fff",
@@ -312,6 +313,9 @@ const style = {
   SignInAskBox: {
     textAlign: "center",
     marginTop: "4px",
+  },
+  SignInIdCheckBtn: {
+    width: "80px",
   },
 
   /**************************SetupForm******************************/
@@ -339,7 +343,7 @@ const style = {
   SetupFormLabel: {
     width: "120px",
     fontWeight: "bold",
-    paddingRight: "20px",
+    paddingRight: "0px",
   },
   /*SignupBtn*/
   SignupBtn: {
@@ -351,6 +355,7 @@ const style = {
       backgroundColor: "#51BC51",
     },
   },
+
   /**************************SignUpForm******************************/
   SufAdminBtn: {
     margin: "0px",

@@ -95,9 +95,7 @@ const ProfileModifyForm = ({ member, isLoading, onModify, myInfo }) => {
                       // onClick={handleCheckDuplicate}
                       sx={style.PfmIdPwdBtn}
                     >
-                      <Typography sx={style.PfmText}>
-                        아이디 중복확인
-                      </Typography>
+                      <Typography sx={style.PfmText}>확인</Typography>
                     </Button>
                   </Box>
                   {/* {isNicknameAvailable !== null && (

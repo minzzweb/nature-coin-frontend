@@ -71,8 +71,17 @@ const AdminSetupForm = ({ onRegister }) => {
                   variant="outlined"
                   onChange={handleChange}
                   placeholder="email"
-                  sx={{ width: "380px" }}
+                  sx={{ width: "300px" }}
                 />
+                <Box>
+                  <Button
+                    type="button"
+                    // onClick={handleCheckEmail}
+                    sx={style.SignUpCheckBtn}
+                  >
+                    <Typography>인증</Typography>
+                  </Button>
+                </Box>
               </Box>
               <Typography color="error">{errors.email}</Typography>
 
@@ -89,8 +98,17 @@ const AdminSetupForm = ({ onRegister }) => {
                   variant="outlined"
                   onChange={handleChange}
                   placeholder="nickname"
-                  sx={{ width: "380px" }}
+                  sx={{ width: "300px" }}
                 />
+                <Box>
+                  <Button
+                    type="button"
+                    // onClick={handleCheckDuplicate}
+                    sx={style.SignInIdCheckText}
+                  >
+                    <Typography>확인</Typography>
+                  </Button>
+                </Box>
               </Box>
               <Typography color="error">{errors.nickname}</Typography>
 
