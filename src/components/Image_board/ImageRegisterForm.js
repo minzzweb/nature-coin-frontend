@@ -20,8 +20,8 @@ const ImageRegisterForm = ({ onRegister }) => {
   const [categoryId, setCategoryId] = useState("");
   const [imageTitle, setImageTitle] = useState("");
   const [imageContent, setImageContent] = useState("");
-
   const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const handleChangeCategory = (e, newValue) => {
     setCategoryId(newValue);
@@ -32,12 +32,20 @@ const ImageRegisterForm = ({ onRegister }) => {
   }, []);
 
   const handleChangeImageContent = useCallback((e) => {
-    setImageContent(e.target.value);
+    const inputContent = e.target.value;
+    if (inputContent.length <= 200) {
+      setImageContent(inputContent);
+    }
   }, []);
 
   const handleChangeFile = useCallback((e) => {
-    console.log(e.target.files[0]);
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setPreviewUrl(imageUrl);
+    }
   }, []);
 
   //submit 처리
@@ -92,8 +100,15 @@ const ImageRegisterForm = ({ onRegister }) => {
                 </td>
               </tr>
               <tr>
+                <td colSpan="2">
+                  <Box sx={style.ImageBoardBox2}>
+                    <img src={previewUrl} alt="" style={style.ImageBoardImg} />
+                  </Box>
+                </td>
+              </tr>
+              <tr>
                 <td colSpan="2" rows={5}>
-                  <span>최대 200자</span>
+                  <span>{imageContent.length}/200 글자</span>
                   <Textarea
                     rows="5"
                     value={imageContent}

@@ -152,10 +152,17 @@ const style = {
     color: "#A1E8A1",
     fontSize: "50px",
   },
-  LabelIcon: {
+  SquareIcon3: {
+    position: "absolute",
+    top: "0px",
+    left: "50px",
+    color: "#A1E8A1",
+    fontSize: "50px",
+  },
+  PlayArrowIcon: {
     position: "absolute",
     top: "-7px",
-    left: "50px",
+    left: "72px",
     color: "#A1E8A1",
     fontSize: "64px",
   },

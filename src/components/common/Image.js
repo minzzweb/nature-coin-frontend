@@ -5,7 +5,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import style from "../common/style";
-import LabelIcon from "@mui/icons-material/Label";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SquareIcon from "@mui/icons-material/Square";
 import Typography from "@mui/joy/Typography";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -50,7 +50,8 @@ const Image = ({ images, categoryName, isLoading }) => {
                   <Box>
                     <SquareIcon sx={style.SquareIcon1} />
                     <SquareIcon sx={style.SquareIcon2} />
-                    <LabelIcon sx={style.LabelIcon} />
+                    <SquareIcon sx={style.SquareIcon3} />
+                    <PlayArrowIcon sx={style.PlayArrowIcon} />
                     <Typography sx={style.ImageDate}>
                       {imageDate(image.regDate)}
                     </Typography>

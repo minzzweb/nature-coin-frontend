@@ -30,7 +30,10 @@ const ImageModifyForm = ({
   }, []);
 
   const handleChangeImageContent = useCallback((e) => {
-    setImageContent(e.target.value);
+    const inputContent = e.target.value;
+    if (inputContent.length <= 200) {
+      setImageContent(inputContent);
+    }
   }, []);
 
   const handleChangeFile = useCallback((e) => {
@@ -117,7 +120,7 @@ const ImageModifyForm = ({
                 </tr>
                 <tr>
                   <td colSpan="2" rows={5}>
-                    <span>최대 200자</span>
+                    <span>{imageContent.length}/200 글자</span>
                     <Textarea
                       rows="5"
                       value={imageContent}
@@ -135,9 +138,10 @@ const ImageModifyForm = ({
                 </tr>
               </tbody>
             </Table>
-            <Box sx={style.ImageBoardRegistBtn}>
+
+            <Box sx={style.ImageBoardBox}>
               {isOwn && (
-                <Button type="submit" sx={style.ImfRegistBtn}>
+                <Button type="submit" sx={style.ImageBoardRegistBtn}>
                   등록
                 </Button>
               )}
