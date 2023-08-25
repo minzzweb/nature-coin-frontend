@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchMember, FETCH_MEMBER_ONE } from "../modules/member";
+import { fetchMember, FETCH_MEMBER_ONE } from "../../modules/member";
 import {
   fetchMyImageList,
   FETCH_MYIMAGE_LIST,
   fetchMainImageList,
-} from "../modules/imageboard";
-import { getAuthorized, isAdmin, isMember } from "../modules/selector"; //로그인 여부
-import Profile from "../components/mypage/Profile";
-import MyImageList from "../components/mypage/MyImageList";
-import { fetchUserItemList, FETCH_USERITEMLIST } from "../modules/useritem";
-import MyItemList from "../components/mypage/MyItemList";
+} from "../../modules/imageboard";
+import { getAuthorized, isAdmin, isMember } from "../../modules/selector"; //로그인 여부
+import Profile from "../../components/mypage/Profile";
+import MyImageList from "../../components/mypage/MyImageList";
+import { fetchUserItemList, FETCH_USERITEMLIST } from "../../modules/useritem";
+import MyItemList from "../../components/mypage/MyItemList";
+import MyPageMenu from "../../components/mypage/MyPageMenu";
 
 const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   const { userNo } = useParams();
@@ -35,15 +36,29 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     isUseritemListLoading: loading[FETCH_USERITEMLIST],
   }));
 
+  const [showImageList, setShowImageList] = useState(true);
+
+  const [showUserItemList, setShowUserItemList] = useState(true);
+
   //내 이미지 가져오기 함수
   const myImageList = async () => {
     const imageWriter = myInfo.nickname;
     dispatch(fetchMyImageList(imageWriter));
+    setShowImageList(true);
+    setShowUserItemList(false);
   };
 
   //전체 이미지 가져오기 함수
   const imageListAll = async () => {
     dispatch(fetchMainImageList());
+    setShowImageList(true);
+  };
+
+  //내가 산 기프티콘 가져오기 함
+  const userItemList = async () => {
+    dispatch(fetchUserItemList());
+    setShowImageList(false);
+    setShowUserItemList(true);
   };
 
   useEffect(() => {
@@ -62,11 +77,6 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     }
   }, [myInfo, isAdmin]);
 
-  //내가 산 기프티콘 가져오기 함
-  const userItemList = async () => {
-    dispatch(fetchUserItemList());
-  };
-
   return (
     <>
       <Profile
@@ -76,13 +86,23 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
         myInfo={myInfo}
         myImageList={myImageList}
         userItemList={userItemList}
+      />
+      <MyPageMenu
         isAuthorized={isAuthorized}
         isAdmin={isAdmin}
         isMember={isMember}
         imageListAll={imageListAll}
+        myImageList={myImageList}
+        userItemList={userItemList}
+        showImageList={showImageList}
+        showUserItemList={showUserItemList}
       />
-      <MyImageList images={images} isLoading={isImageListLoading} />
-      <MyItemList userItems={userItems} isLoading={isUseritemListLoading} />
+      {showImageList && (
+        <MyImageList images={images} isLoading={isImageListLoading} />
+      )}
+      {showUserItemList && isMember && (
+        <MyItemList userItems={userItems} isLoading={isUseritemListLoading} />
+      )}
     </>
   );
 };

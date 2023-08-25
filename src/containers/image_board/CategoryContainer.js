@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import ImagePosts from "../components/Image_board/ImagePosts";
+import Image from "../../components/common/Image";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import loading from "../modules/loading";
-import { fetchImageList, FETCH_IMAGE_LIST } from "../modules/imageboard";
+import { fetchImageList, FETCH_IMAGE_LIST } from "../../modules/imageboard";
+import { Box } from "@mui/material";
+import style from "../../components/common/style";
 
 const CategoryContainer = () => {
   const { category } = useParams();
@@ -23,11 +24,13 @@ const CategoryContainer = () => {
   }, [dispatch, categoryName]);
 
   return (
-    <ImagePosts
-      images={images}
-      categoryName={categoryName}
-      isLoading={isLoading}
-    />
+    <Box sx={style.marginLayout}>
+      <Image
+        images={images}
+        categoryName={categoryName}
+        isLoading={isLoading}
+      />
+    </Box>
   );
 };
 

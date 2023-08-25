@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import ImageModifyForm from "../components/Image_board/ImageModifyForm";
+import ImageModifyForm from "../../components/Image_board/ImageModifyForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchImage, FETCH_IMAGE } from "../modules/imageboard";
-import { modifyImageApi } from "../lib/api";
+import { fetchImage, FETCH_IMAGE } from "../../modules/imageboard";
+import { modifyImageApi } from "../../lib/api";
 
 const ImageModifyContainer = () => {
   const { imageId } = useParams();

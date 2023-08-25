@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ImageRegisterForm from "../components/Image_board/ImageRegisterForm";
-import { registImageApi } from "../lib/api";
+import ImageRegisterForm from "../../components/Image_board/ImageRegisterForm";
+import { registImageApi } from "../../lib/api";
 
 const ImageRegisterContainer = () => {
   const navigete = useNavigate();

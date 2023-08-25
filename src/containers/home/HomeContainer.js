@@ -1,5 +1,5 @@
-import HomeBackground from "../components/Home/HomeBackground";
-import HomeSection from "../components/Home/HomeSection";
+import HomeBackground from "../../components/home/HomeBackground";
+import HomeSection from "../../components/home/HomeSection";
 
 const HomeContainer = () => {
   return (

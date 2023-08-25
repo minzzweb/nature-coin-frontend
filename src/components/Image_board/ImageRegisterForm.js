@@ -8,6 +8,7 @@ import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
+import style from "../common/style";
 
 const ImageRegisterForm = ({ onRegister }) => {
   const categories = {
@@ -50,36 +51,16 @@ const ImageRegisterForm = ({ onRegister }) => {
   );
 
   return (
-    <Box
-      sx={{
-        width: "600px",
-        margin: "0 auto",
-        marginTop: "100px",
-        padding: "10px",
-        boxSizing: "border-box",
-      }}
-    >
-      <Typography
-        level="h3"
-        sx={{
-          color: "#EA9A3E",
-        }}
-      >
+    <Box sx={style.ImageBoardContainer}>
+      <Typography level="h3" sx={style.ImageBoardTitle}>
         Register your photo and get coins!
       </Typography>
-      <Box
-        sx={{
-          marginTop: "10px",
-          padding: "10px",
-          backgroundColor: "#F6FEF6",
-          width: "100%",
-        }}
-      >
+      <Box sx={style.ImageBoardBox1}>
         <form onSubmit={handleSubmit}>
           <Table size="sm">
             <tbody>
               <tr>
-                <td style={{ width: "25%" }}>
+                <td style={style.ImageBoardtd1Width}>
                   <Select
                     name="categoryId"
                     id="categoryId"
@@ -94,7 +75,7 @@ const ImageRegisterForm = ({ onRegister }) => {
                     ))}
                   </Select>
                 </td>
-                <td style={{ width: "75%" }}>
+                <td style={style.ImageBoardtd2Width}>
                   <Input
                     variant="outlined"
                     type="text"
@@ -118,37 +99,21 @@ const ImageRegisterForm = ({ onRegister }) => {
                     value={imageContent}
                     onChange={handleChangeImageContent}
                     required
-                    sx={{
-                      height: "200px",
-                    }}
+                    sx={style.ImageBoardTextarea}
                   ></Textarea>
                 </td>
               </tr>
             </tbody>
           </Table>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Button
-              type="submit"
-              sx={{
-                backgroundColor: "#A1E8A1",
-                marginRight: "5px",
-              }}
-            >
+          <Box sx={style.ImageBoardBox}>
+            <Button type="submit" sx={style.ImageBoardRegistBtn}>
               등록
             </Button>
             <Button
               component={Link}
               to="/"
               size="sm"
-              sx={{
-                backgroundColor: "#CDD7E1",
-                height: "36px",
-              }}
+              sx={style.ImageBoardResetBtn}
             >
               취소
             </Button>

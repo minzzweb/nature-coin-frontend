@@ -1,9 +1,9 @@
-import item1 from "../../assets/items/item1.png";
-import item2 from "../../assets/items/item2.png";
-import item3 from "../../assets/items/item3.png";
-import item4 from "../../assets/items/item4.png";
-import item5 from "../../assets/items/item5.png";
-import item6 from "../../assets/items/item6.png";
+import item1 from "../assets/items/item1.png";
+import item2 from "../assets/items/item2.png";
+import item3 from "../assets/items/item3.png";
+import item4 from "../assets/items/item4.png";
+import item5 from "../assets/items/item5.png";
+import item6 from "../assets/items/item6.png";
 
 //더미 데이터
 const itemsData = [

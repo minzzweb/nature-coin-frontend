@@ -6,6 +6,9 @@ import {
   FETCH_MAINIMAGE_LIST,
 } from "../../modules/imageboard";
 import Typography from "@mui/joy/Typography";
+import { Box } from "@mui/material";
+import style from "../common/style";
+
 const HomeSection = () => {
   const dispatch = useDispatch();
 
@@ -19,18 +22,12 @@ const HomeSection = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Typography
-        level="h2"
-        sx={{
-          color: "#EA9A3E",
-          margin: "30px 0px",
-        }}
-      >
+    <Box sx={style.marginLayout}>
+      <Typography level="h2" sx={{ color: "#EA9A3E" }}>
         Recent Images
       </Typography>
-      <HomePosts images={images} isLoading={isLoading} />;
-    </>
+      <HomePosts images={images} isLoading={isLoading} />
+    </Box>
   );
 };
 export default HomeSection;

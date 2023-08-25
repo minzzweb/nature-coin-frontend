@@ -1,9 +1,16 @@
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import style from "./common/style";
 const NotFound = () => {
   return (
-    <div style={{ padding: 20, marginTop: 70 }}>
-      <h2>404: Page Not Found</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
-    </div>
+    <Box sx={{ ...style.marginLayout, marginTop: "120px", minHeight: "50vh" }}>
+      <Typography variant="h4" component="h4">
+        404: Page Not Found
+      </Typography>
+      <Typography variant="h5" component="h5">
+        Oops! It seems like you've reached a page that doesn't exist.
+      </Typography>
+    </Box>
   );
 };
 export default NotFound;

@@ -70,10 +70,7 @@ export default function Header({
               role="none"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              sx={{
-                position: "relative",
-                height: "100%",
-              }}
+              sx={style.HeaderListItem}
             >
               <ListItemButton
                 role="menuitem"

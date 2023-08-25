@@ -1,10 +1,10 @@
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Box, Button, TextField } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input from "@mui/joy/Input";
 import FormLabel from "@mui/joy/FormLabel";
 import { Typography } from "@mui/material";
@@ -12,7 +12,6 @@ import EmailIcon from "@mui/icons-material/Email";
 import style from "../common/style.js";
 
 const SignUpForm = ({ onSignUp }) => {
-  //const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("유효한 이메일 주소를 입력해주세요")
@@ -51,56 +50,19 @@ const SignUpForm = ({ onSignUp }) => {
       validateOnMount={true}
     >
       {({ values, handleSubmit, handleChange, errors }) => (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "200px 0px",
-          }}
-        >
+        <Box sx={style.SetupContainer}>
           <ToastContainer />
-          <Typography variant="h4" gutterBottom sx={{ color: "#1F7A1F" }}>
+          <Typography variant="h4" gutterBottom sx={style.SetupTitle}>
             NATURE COIN
           </Typography>
-          <Button
-            component={Link}
-            to="/member/setup"
-            sx={{
-              margin: "0px",
-
-              marginLeft: "5px",
-              background: "#1F7A1F",
-              color: "#fff",
-            }}
-          >
+          <Button component={Link} to="/member/setup" sx={style.SufAdminBtn}>
             최초관리자 등록
           </Button>
           <form onSubmit={handleSubmit} autoComplete="off">
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "500px",
-              }}
-            >
+            <Box sx={style.SetupBox1}>
               {/*이메일*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp;EMAIL
                 </FormLabel>
@@ -116,20 +78,8 @@ const SignUpForm = ({ onSignUp }) => {
               <Typography color="error">{errors.email}</Typography>
 
               {/*닉네임*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp; NICKNAME
                 </FormLabel>
@@ -146,20 +96,8 @@ const SignUpForm = ({ onSignUp }) => {
               <Typography color="error">{errors.nickname}</Typography>
 
               {/*패스워드*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD
                 </FormLabel>
@@ -176,20 +114,8 @@ const SignUpForm = ({ onSignUp }) => {
               <Typography color="error">{errors.password}</Typography>
 
               {/*패스워드 체크*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD <br />
                   &nbsp; VALIDATE

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box } from "@mui/material";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
+import style from "../common/style";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { FormControlLabel } from "@mui/material";
 
 const ProfileModifyForm = ({ member, isLoading, onModify, myInfo }) => {
   const [nickname, setNickname] = useState("");
@@ -60,19 +61,13 @@ const ProfileModifyForm = ({ member, isLoading, onModify, myInfo }) => {
   );
 
   return (
-    <Box>
+    <Box sx={{ minHeight: "50vh" }}>
       {/* '로딩중...' 표시 */}
       {isLoading && "로딩중..."}
       {/* 상세보기 화면 표시 */}
       {!isLoading && member && (
         <Card
-          sx={{
-            maxWidth: 1200,
-            margin: "120px auto 50px",
-            position: "relative",
-            boxShadow: "0",
-            borderBottom: "1px solid #ddd",
-          }}
+          sx={{ ...style.ProfileCard, borderBottom: "none", height: "130px" }}
         >
           <CardHeader
             avatar={
@@ -83,39 +78,83 @@ const ProfileModifyForm = ({ member, isLoading, onModify, myInfo }) => {
             }
             title={
               <form onSubmit={handleSubmit}>
-                <Input
-                  variant="outlined"
-                  type="text"
-                  value={nickname}
-                  onChange={handleChangeNickname}
-                  required
-                  sx={{
-                    width: "200px",
-                  }}
-                />
-                <input type="file" onChange={handleChangeFile} />
-                <Button type="submit">
-                  <EditIcon />
-                  <Typography>완료</Typography>
-                </Button>
+                <Box sx={{ display: "flex" }}>
+                  <Input
+                    variant="outlined"
+                    type="text"
+                    value={nickname}
+                    onChange={handleChangeNickname}
+                    required
+                    sx={{
+                      width: "200px",
+                    }}
+                  />
+                  <Box>
+                    <Button
+                      type="button"
+                      // onClick={handleCheckDuplicate}
+                      sx={style.PfmIdPwdBtn}
+                    >
+                      <Typography sx={style.PfmText}>
+                        아이디 중복확인
+                      </Typography>
+                    </Button>
+                  </Box>
+                  {/* {isNicknameAvailable !== null && (
+                    <Typography
+                      sx={{ color: isNicknameAvailable ? "green" : "red" }}
+                    >
+                      {isNicknameAvailable
+                        ? "사용 가능한 아이디입니다."
+                        : "이미 사용 중인 아이디입니다."}
+                    </Typography>
+                  )} */}
+                  <Box>
+                    <Button
+                      type="button"
+                      // onClick={handleChangePassword}
+                      sx={style.PfmIdPwdBtn}
+                    >
+                      <Typography
+                        sx={{
+                          ...style.PfmText,
+                          color: "red",
+                        }}
+                      >
+                        비빌번호 변경하기
+                      </Typography>
+                    </Button>
+                  </Box>
+                </Box>
+
+                <label style={style.PfmLabel}>
+                  <input
+                    type="file"
+                    style={{ display: "none" }}
+                    onChange={handleChangeFile}
+                  />
+                  <Box sx={style.PfmLabelBox}>
+                    <CameraAltIcon />
+                    <Typography sx={{ color: "#EA9A3E" }}>사진 변경</Typography>
+                  </Box>
+                </label>
+
+                <Box sx={style.ProfileBox1}>
+                  <Button type="submit" sx={style.PfmEditBtn}>
+                    <Typography sx={style.PfmbtnText}>완료</Typography>
+                  </Button>
+                </Box>
               </form>
             }
             subheader={
               <>
                 {member.email}{" "}
-                <span style={{ color: "red", fontSize: "12px" }}>
+                <span style={style.PfmEmailText}>
                   이메일은 변경할 수 없습니다.!
                 </span>
               </>
             }
           />
-          <Box
-            sx={{
-              position: "absolute",
-              top: "10px",
-              right: "20px",
-            }}
-          ></Box>
         </Card>
       )}
     </Box>

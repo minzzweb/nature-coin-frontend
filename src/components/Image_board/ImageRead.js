@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
 import Table from "@mui/joy/Table";
-import axios from "axios";
+import style from "../common/style";
 
 const ImageRead = ({
   imageId,
@@ -46,50 +46,21 @@ const ImageRead = ({
   }
 
   return (
-    <Box
-      sx={{
-        width: "600px",
-        margin: "0 auto",
-        marginTop: "100px",
-        padding: "10px",
-        boxSizing: "border-box",
-      }}
-    >
-      <Box
-        sx={{
-          color: "#EA9A3E",
-        }}
-      ></Box>
+    <Box sx={style.ImageBoardContainer}>
+      <Box sx={style.ImageBoardTitle}></Box>
       {/* '로딩중...' 표시 */}
       {isLoading && "로딩중..."}
       {/* 상세보기 화면 표시 */}
       {!isLoading && image && (
-        <Box
-          sx={{
-            marginTop: "10px",
-            padding: "10px",
-            backgroundColor: "#F6FEF6",
-            width: "100%",
-          }}
-        >
+        <Box sx={style.ImageBoardBox1}>
           <Table>
             <tbody>
               <tr>
                 <td>
-                  <Box
-                    sx={{
-                      borderRadius: "50%",
-                      border: "2px solid #A1E8A1",
-                      overflow: "hidden",
-                    }}
-                  >
+                  <Box sx={style.ImageReadBox1}>
                     <img
                       src={profilepictureUrl()}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        display: "block",
-                      }}
+                      style={style.ImageReadProfileImg}
                     />
                   </Box>
                 </td>
@@ -98,12 +69,7 @@ const ImageRead = ({
                 </td>
               </tr>
               <tr>
-                <td
-                  colSpan={2}
-                  style={{
-                    color: "#EA9A3E",
-                  }}
-                >
+                <td colSpan={2} style={style.categoryColor}>
                   {categoryName}{" "}
                 </td>
                 <td colSpan={6}> {image.imageTitle}</td>
@@ -111,24 +77,11 @@ const ImageRead = ({
 
               <tr>
                 <td colSpan={8}>
-                  <Box
-                    sx={{
-                      width: "300px",
-                      height: "300px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      overflow: "hidden",
-                      margin: "0 auto",
-                    }}
-                  >
+                  <Box sx={style.ImageBoardBox2}>
                     <img
                       src={pictureUrl()}
                       alt=""
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                      }}
+                      style={style.ImageBoardImg}
                     />
                   </Box>
                 </td>
@@ -138,9 +91,7 @@ const ImageRead = ({
                   <Textarea
                     value={image.imageContent}
                     readOnly
-                    sx={{
-                      height: "200px",
-                    }}
+                    sx={style.ImageBoardTextarea}
                   ></Textarea>
                 </td>
               </tr>
@@ -149,49 +100,25 @@ const ImageRead = ({
               </tr>
             </tbody>
           </Table>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
+          <Box sx={style.ImageBoardBox}>
             {isOwn && (
               <Button
                 component={Link}
                 to={`/image/edit/${imageId}`}
                 size="sm"
-                sx={{
-                  backgroundColor: "#CDD7E1",
-                  height: "36px",
-                }}
+                sx={style.ImageEditBtn}
               >
                 편집
               </Button>
             )}
             {(isOwn || isAdmin) && (
-              <Button
-                onClick={onRemove}
-                size="sm"
-                sx={{
-                  backgroundColor: "#CDD7E1",
-                  height: "40px",
-                  margin: "0px 3px",
-                }}
-              >
+              <Button onClick={onRemove} size="sm" sx={style.ImageRemoveBtn}>
                 {/*글쓴자만 보이게!*/}
                 삭제
               </Button>
             )}
             {isAdmin && (
-              <Button
-                onClick={onGrantCoin}
-                size="sm"
-                sx={{
-                  backgroundColor: "#A1E8A1",
-                  height: "40px",
-                  margin: "0px 3px",
-                }}
-              >
+              <Button onClick={onGrantCoin} size="sm" sx={style.ImageCoinBtn}>
                 {/*글쓴자만 보이게!*/}
                 코인 적립
               </Button>
@@ -204,10 +131,7 @@ const ImageRead = ({
                   : `/image/list/${categoryName}`
               }
               size="sm"
-              sx={{
-                backgroundColor: "#CDD7E1",
-                height: "36px",
-              }}
+              sx={style.ImageListBtn}
             >
               목록
             </Button>

@@ -6,6 +6,7 @@ import Table from "@mui/joy/Table";
 import Input from "@mui/joy/Input";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
+import style from "../common/style";
 
 const ImageModifyForm = ({
   imageId,
@@ -72,43 +73,23 @@ const ImageModifyForm = ({
     }
   }
   return (
-    <Box
-      sx={{
-        width: "600px",
-        margin: "0 auto",
-        marginTop: "100px",
-        padding: "10px",
-        boxSizing: "border-box",
-      }}
-    >
-      <Typography
-        level="h3"
-        sx={{
-          color: "#EA9A3E",
-        }}
-      >
+    <Box sx={style.ImageBoardContainer}>
+      <Typography level="h3" sx={style.ImageBoardTitle}>
         Register your photo and get coins!
       </Typography>
       {/* '로딩중...' 표시 */}
       {isLoading && "로딩중..."}
       {/* 상세보기 화면 표시 */}
       {!isLoading && image && (
-        <Box
-          sx={{
-            marginTop: "10px",
-            padding: "10px",
-            backgroundColor: "#F6FEF6",
-            width: "100%",
-          }}
-        >
+        <Box sx={style.ImageBoardBox1}>
           <form onSubmit={handleSubmit}>
             <Table size="sm">
               <tbody>
                 <tr>
-                  <td style={{ width: "25%" }}>
+                  <td style={style.ImageBoardtd1Width}>
                     <Input type="text" value={categoryName} readOnly />
                   </td>
-                  <td style={{ width: "75%" }}>
+                  <td style={style.ImageBoardtd2Width}>
                     <Input
                       variant="outlined"
                       type="text"
@@ -125,24 +106,11 @@ const ImageModifyForm = ({
                 </tr>
                 <tr>
                   <td colSpan="2">
-                    <Box
-                      sx={{
-                        width: "300px",
-                        height: "300px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        overflow: "hidden",
-                        margin: "0 auto",
-                      }}
-                    >
+                    <Box sx={style.ImageBoardBox2}>
                       <img
                         src={previewUrl || pictureUrl()}
                         alt=""
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                        }}
+                        style={style.ImageBoardImg}
                       />
                     </Box>
                   </td>
@@ -155,9 +123,7 @@ const ImageModifyForm = ({
                       value={imageContent}
                       onChange={handleChangeImageContent}
                       required
-                      sx={{
-                        height: "200px",
-                      }}
+                      sx={style.ImageBoardTextarea}
                     ></Textarea>
                   </td>
                 </tr>
@@ -169,20 +135,9 @@ const ImageModifyForm = ({
                 </tr>
               </tbody>
             </Table>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
+            <Box sx={style.ImageBoardRegistBtn}>
               {isOwn && (
-                <Button
-                  type="submit"
-                  sx={{
-                    backgroundColor: "#A1E8A1",
-                    marginRight: "5px",
-                  }}
-                >
+                <Button type="submit" sx={style.ImfRegistBtn}>
                   등록
                 </Button>
               )}
@@ -190,10 +145,7 @@ const ImageModifyForm = ({
                 component={Link}
                 to="/"
                 size="sm"
-                sx={{
-                  backgroundColor: "#CDD7E1",
-                  height: "36px",
-                }}
+                sx={style.ImageBoardResetBtn}
               >
                 취소
               </Button>

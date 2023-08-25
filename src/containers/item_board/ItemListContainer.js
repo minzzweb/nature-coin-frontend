@@ -1,11 +1,8 @@
-import ItemList from "../components/item_board/ItemList";
-import itemsData from "../components/item_board/itemsData";
-import * as api from "../lib/api";
-import { useNavigate } from "react-router-dom";
+import ItemList from "../../components/item_board/ItemList";
+import itemsData from "../../dummyData/itemsData";
+import * as api from "../../lib/api";
 
 const ItemListContainer = () => {
-  const navigate = useNavigate();
-
   const onBuy = async (itemId, itemName, price) => {
     try {
       const response = await api.buyItemApi(itemId, itemName, price);

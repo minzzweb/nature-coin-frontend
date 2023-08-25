@@ -51,44 +51,17 @@ const AdminSetupForm = ({ onRegister }) => {
       validateOnMount={true}
     >
       {({ values, handleSubmit, handleChange, errors }) => (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "200px 0px",
-          }}
-        >
+        <Box sx={style.SetupContainer}>
           <ToastContainer />
-          <Typography variant="h4" gutterBottom sx={{ color: "#1F7A1F" }}>
+          <Typography variant="h4" gutterBottom sx={style.SetupTitle}>
             최초 관리자 등록
           </Typography>
 
           <form onSubmit={handleSubmit} autoComplete="off">
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "500px",
-              }}
-            >
+            <Box sx={style.SetupBox1}>
               {/*이메일*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp;EMAIL
                 </FormLabel>
@@ -104,20 +77,8 @@ const AdminSetupForm = ({ onRegister }) => {
               <Typography color="error">{errors.email}</Typography>
 
               {/*닉네임*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp; NICKNAME
                 </FormLabel>
@@ -134,20 +95,8 @@ const AdminSetupForm = ({ onRegister }) => {
               <Typography color="error">{errors.nickname}</Typography>
 
               {/*패스워드*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD
                 </FormLabel>
@@ -164,20 +113,8 @@ const AdminSetupForm = ({ onRegister }) => {
               <Typography color="error">{errors.password}</Typography>
 
               {/*패스워드 체크*/}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "20px",
-                }}
-              >
-                <FormLabel
-                  sx={{
-                    width: "120px",
-                    fontWeight: "bold",
-                    paddingRight: "20px",
-                  }}
-                >
+              <Box sx={style.SetupBox2}>
+                <FormLabel sx={style.SetupFormLabel}>
                   <EmailIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD <br />
                   &nbsp; VALIDATE

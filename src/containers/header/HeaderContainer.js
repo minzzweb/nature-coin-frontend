@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../components/Headers/Header";
+import Header from "../../components/headers/Header";
 import { connect, useDispatch } from "react-redux";
-import { getAuthorized, isAdmin, isMember } from "../modules/selector"; //로그인 여부
-import { setAccessToken, setMyInfo } from "../modules/auth";
-import client from "../lib/client";
+import { getAuthorized, isAdmin, isMember } from "../../modules/selector"; //로그인 여부
+import { setAccessToken, setMyInfo } from "../../modules/auth";
+import client from "../../lib/client";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 

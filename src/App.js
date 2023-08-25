@@ -1,26 +1,21 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-} from "react-router-dom";
-import HeaderContainer from "./containers/HeaderContainer";
-import Footer from "./components/Footers/Footer";
-import HomeContainer from "./containers/HomeContainer";
-import ImageListContainer from "./containers/ImageListContainer";
-import ImageRegisterContainer from "./containers/ImageRegisterContainer";
-import ImageModifyContainer from "./containers/ImageModifyContainer";
-import ImageReadContainer from "./containers/ImageReadContainer";
-import AlbumContainer from "./containers/AlbumContainer";
-import SignUpContainer from "./containers/SignUpContainer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HeaderContainer from "./containers/header/HeaderContainer";
+import Footer from "./components/footers/Footer";
+import HomeContainer from "./containers/home/HomeContainer";
+import ImageListContainer from "./containers/image_board/ImageListContainer";
+import ImageRegisterContainer from "./containers/image_board/ImageRegisterContainer";
+import ImageModifyContainer from "./containers/image_board/ImageModifyContainer";
+import ImageReadContainer from "./containers/image_board/ImageReadContainer";
+import AlbumContainer from "./containers/image_board/AlbumContainer";
+import SignUpContainer from "./containers/signup/SignUpContainer";
 import NotFound from "./components/NotFound";
-import ItemListContainer from "./containers/ItemListContainer";
-import CategoryContainer from "./containers/CategoryContainer";
-import SignInContainer from "./containers/SignInContainer";
-import AdminSetupContainer from "./containers/AdminSetupContainer";
-import MyPageContainer from "./containers/MyPageContainer";
-import ModifyProfileContainer from "./containers/ModifyProfileContainer";
+import ItemListContainer from "./containers/item_board/ItemListContainer";
+import CategoryContainer from "./containers/image_board/CategoryContainer";
+import SignInContainer from "./containers/Signin/SignInContainer";
+import AdminSetupContainer from "./containers/signup/AdminSetupContainer";
+import MyPageContainer from "./containers/mypage/MyPageContainer";
+import ModifyProfileContainer from "./containers/mypage/ModifyProfileContainer";
 
 function App() {
   return (

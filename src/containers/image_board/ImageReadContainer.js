@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchImage, FETCH_IMAGE } from "../modules/imageboard";
-import ImageRead from "../components/Image_board/ImageRead";
+import { fetchImage, FETCH_IMAGE } from "../../modules/imageboard";
+import ImageRead from "../../components/Image_board/ImageRead";
 import { useParams } from "react-router-dom";
-import { removeImageApi } from "../lib/api";
+import { removeImageApi } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
-import { grantCoinsToUserApi } from "../lib/api";
+import { grantCoinsToUserApi } from "../../lib/api";
 
 const ImageReadContainer = () => {
   const { imageId } = useParams();

@@ -4,28 +4,12 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { Box } from "@mui/material";
 import Typography from "@mui/joy/Typography";
 import { Link } from "react-router-dom";
+import style from "../common/style";
 const Footer = () => {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        padding: "20px 0px",
-        borderTop: "1px solid #ddd",
-      }}
-    >
-      <Box
-        sx={{
-          width: "1200px",
-          margin: "0 auto",
-          display: "flex",
-        }}
-      >
-        <Box
-          sx={{
-            width: "50%",
-            height: "100%",
-          }}
-        >
+    <Box sx={style.FooterContainer}>
+      <Box sx={style.FooterLeftBox1}>
+        <Box sx={style.FooterLeftBox2}>
           <Box>
             <Typography level="body-md">
               대표 민즈 | 사업자번호 123-12-12345
@@ -47,42 +31,16 @@ const Footer = () => {
             </Typography>
           </Box>
         </Box>
-        <Box
-          sx={{
-            width: "50%",
-            position: "relative",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-around",
-              position: "absolute",
-              width: "200px",
-              top: "0px",
-              right: "20px",
-            }}
-          >
+        <Box sx={style.FooterRightBox1}>
+          <Box sx={style.FooterRightBox2}>
             <Link to="/">
-              <YouTubeIcon
-                sx={{
-                  color: "#51BC51",
-                }}
-              />
+              <YouTubeIcon sx={style.FooterIcon} />
             </Link>
             <Link to="/">
-              <FacebookIcon
-                sx={{
-                  color: "#51BC51",
-                }}
-              />
+              <FacebookIcon sx={style.FooterIcon} />
             </Link>
             <Link to="/">
-              <InstagramIcon
-                sx={{
-                  color: "#51BC51",
-                }}
-              />
+              <InstagramIcon sx={style.FooterIcon} />
             </Link>
           </Box>
         </Box>

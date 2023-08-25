@@ -3,53 +3,83 @@ import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
+import style from "../common/style";
+import LabelIcon from "@mui/icons-material/Label";
+import SquareIcon from "@mui/icons-material/Square";
+import Typography from "@mui/joy/Typography";
+import ListSubheader from "@mui/material/ListSubheader";
 
-const Image = ({ images, isLoading }) => {
+const Image = ({ images, categoryName, isLoading }) => {
   const pictureUrl = (imageId) => {
     return (
       "/image/display?imageId=" + imageId + "&timestamp=" + new Date().getTime()
     );
   };
 
+  const imageDate = (regDate) => {
+    const formattedDate = regDate.replace(/-/g, "");
+    return formattedDate;
+  };
+
   return (
-    <Box
-      sx={{
-        width: 1200,
-        margin: "0 auto",
-      }}
-    >
+    <Box>
       {isLoading && "로딩중..."}
       {!isLoading && images && (
-        <ImageList sx={{ width: 1200, overflow: "hidden" }}>
-          <ImageListItem key="Subheader" cols={4}></ImageListItem>
+        <ImageList sx={style.ImageImageList}>
+          <ImageListItem key="Subheader" cols={4}>
+            {categoryName && (
+              <ListSubheader component="div">
+                <Typography
+                  level="h3"
+                  sx={{
+                    color: "#EA9A3E",
+                    marginBottom: "30px",
+                  }}
+                >
+                  {categoryName}
+                </Typography>
+              </ListSubheader>
+            )}
+          </ImageListItem>
+
           {images.map((image) => (
-            <Link to={"/image/read/" + image.imageId} key={image.imageId}>
-              <ImageListItem sx={{ height: 300, width: 300 }}>
-                <img
-                  src={`${pictureUrl(
-                    image.imageId
-                  )}?w=300&fit=crop&auto=format`}
-                  srcSet={`${pictureUrl(
-                    image.imageId
-                  )}?w=300&fit=crop&auto=format&dpr=2 2x`}
-                  alt={image.imageTitle}
-                  loading="lazy"
-                  style={{ height: "300px", width: "300px" }}
-                />
-                <ImageListItemBar
-                  title={image.imageTitle}
-                  subtitle={image.imageWriter}
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={`info about ${image.title}`}
-                    ></IconButton>
-                  }
-                />
-              </ImageListItem>
-            </Link>
+            <Box style={{ width: "300px" }} key={image.imageId}>
+              <Link to={"/image/read/" + image.imageId}>
+                <ImageListItem sx={style.ImageImageListItem}>
+                  <Box>
+                    <SquareIcon sx={style.SquareIcon1} />
+                    <SquareIcon sx={style.SquareIcon2} />
+                    <LabelIcon sx={style.LabelIcon} />
+                    <Typography sx={style.ImageDate}>
+                      {imageDate(image.regDate)}
+                    </Typography>
+                  </Box>
+                  <img
+                    src={`${pictureUrl(
+                      image.imageId
+                    )}?w=300&fit=crop&auto=format`}
+                    srcSet={`${pictureUrl(
+                      image.imageId
+                    )}?w=300&fit=crop&auto=format&dpr=2 2x`}
+                    alt={image.imageTitle}
+                    loading="lazy"
+                    style={style.ImageImageListItem}
+                  />
+
+                  <ImageListItemBar
+                    title={image.imageTitle}
+                    subtitle={image.imageWriter}
+                    actionIcon={
+                      <IconButton
+                        sx={style.ImageIconButton}
+                        aria-label={`info about ${image.title}`}
+                      ></IconButton>
+                    }
+                  />
+                </ImageListItem>
+              </Link>
+            </Box>
           ))}
         </ImageList>
       )}

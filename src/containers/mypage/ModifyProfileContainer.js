@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import ProfileModifyForm from "../components/mypage/ProfileModifyForm";
+import ProfileModifyForm from "../../components/mypage/ProfileModifyForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchMember, FETCH_MEMBER_ONE } from "../modules/member";
-import { modifyMemberApi } from "../lib/api";
+import { fetchMember, FETCH_MEMBER_ONE } from "../../modules/member";
+import { modifyMemberApi } from "../../lib/api";
 
 const ModifyProfileContainer = () => {
   const { userNo } = useParams();
