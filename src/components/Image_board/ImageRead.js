@@ -15,6 +15,7 @@ const ImageRead = ({
   myInfo,
   isMyPage,
   onGrantCoin,
+  grantedImage,
 }) => {
   // 이미지 표시 URL 생성
   const pictureUrl = () => {
@@ -23,6 +24,7 @@ const ImageRead = ({
     );
   };
 
+  console.log("grantedImage ?? : " + grantedImage);
   const profilepictureUrl = () => {
     return (
       "/image/display/profile?imageWriter=" +
@@ -100,26 +102,60 @@ const ImageRead = ({
               </tr>
             </tbody>
           </Table>
+
           <Box sx={style.ImageBoardBox}>
             {isOwn && (
               <Button
                 component={Link}
                 to={`/image/edit/${imageId}`}
                 size="sm"
-                sx={style.ImageEditBtn}
+                sx={
+                  grantedImage
+                    ? {
+                        ...style.ImageRemoveBtn,
+                        pointerEvents: "none",
+                        opacity: 0.5,
+                      }
+                    : style.ImageEditBtn
+                }
               >
                 편집
               </Button>
             )}
+
             {(isOwn || isAdmin) && (
-              <Button onClick={onRemove} size="sm" sx={style.ImageRemoveBtn}>
+              <Button
+                onClick={onRemove}
+                size="sm"
+                sx={
+                  grantedImage
+                    ? {
+                        ...style.ImageRemoveBtn,
+                        pointerEvents: "none",
+                        opacity: 0.5,
+                      }
+                    : style.ImageRemoveBtn
+                }
+              >
                 {/*글쓴자만 보이게!*/}
                 삭제
               </Button>
             )}
+
             {isAdmin && (
-              <Button onClick={onGrantCoin} size="sm" sx={style.ImageCoinBtn}>
-                {/*글쓴자만 보이게!*/}
+              <Button
+                onClick={onGrantCoin}
+                size="sm"
+                sx={
+                  grantedImage
+                    ? {
+                        ...style.ImageCoinBtn,
+                        pointerEvents: "none",
+                        opacity: 0.5,
+                      }
+                    : style.ImageCoinBtn
+                }
+              >
                 코인 적립
               </Button>
             )}
