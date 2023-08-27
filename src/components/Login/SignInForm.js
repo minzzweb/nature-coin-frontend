@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import EmailIcon from "@mui/icons-material/Email";
 import style from "../common/style.js";
 import { Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignInForm = ({ onSignIn }) => {
   const validationSchema = Yup.object().shape({
