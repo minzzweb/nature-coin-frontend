@@ -173,6 +173,29 @@ const style = {
     fontSize: "20px",
     color: "#fff",
   },
+  grantCoinsRockBox1: {
+    position: "absolute",
+    left: "0px",
+    top: "0px",
+    display: "flex",
+    width: "100%",
+    height: "100%",
+  },
+  grantCoinsRockBox2: {
+    backgroundColor: "black",
+    width: "300px",
+    height: "300px",
+    opacity: "0.7",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  grantCoinsTypography: {
+    color: "#fff",
+    border: "1px solid #A1E8A1",
+    padding: "5px",
+    borderRadius: "12px",
+  },
   /**************************ImageBoard**************************/
   ImageBoardContainer: {
     width: "600px",
@@ -248,7 +271,7 @@ const style = {
     margin: "0px 3px",
   },
   ImageListBtn: {
-    backgroundColor: "#CDD7E1",
+    backgroundColor: "#A1E8A1",
     height: "36px",
   },
   /**************************ItemList**************************/
