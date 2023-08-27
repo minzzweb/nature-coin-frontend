@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SignInForm from "../../components/login/SignInForm";
-import { checkMyInfo, login } from "../../modules/auth";
+import { checkMyInfo, loginfailure, login } from "../../modules/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -9,37 +9,39 @@ const SignInContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { accessToken, myInfo } = useSelector(({ auth }) => ({
+  const { accessToken, myInfo, error } = useSelector(({ auth }) => ({
     accessToken: auth.accessToken,
     myInfo: auth.myInfo,
+    error: auth.error,
   }));
 
   const onSignIn = (email, password) => {
-    try {
-      dispatch(login({ email, password }));
-
-      toast.success(<h3>로그인 성공</h3>, {
-        position: "top-center",
-        autoClose: 2000,
-      });
-    } catch (e) {
-      toast.error("비밀번호를 다시 확인해주세요!", {
-        position: "top-center",
-      });
-    }
+    dispatch(login({ email, password }));
   };
 
   useEffect(() => {
-    if (accessToken) {
+    if (error) {
+      if (error.response && error.response.status === 401) {
+        toast.error("로그인에 실패했습니다. 다시 시도해주세요.", {
+          position: "top-center",
+        });
+      }
+      dispatch(loginfailure(null));
+    } else if (accessToken) {
       dispatch(checkMyInfo()); //로그인 후 토큰 있으면 checkMyInfo보내서  사용자정보 응답받아 state에 저장
     }
-  }, [accessToken, dispatch, navigate]);
+  }, [accessToken, error, dispatch, navigate]);
 
   useEffect(() => {
     if (myInfo) {
-      alert("로그인 되었습니다.");
+      toast.success("로그인 되었습니다!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
 
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
   }, [myInfo, navigate]);
 
