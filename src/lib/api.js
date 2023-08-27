@@ -63,6 +63,12 @@ export const fetchMyImageListApi = (nickname) =>
 export const grantCoinsToUserApi = (imageId, imagewriter, amount) =>
   client.post("/coins", { imageId, imagewriter, amount });
 
+//적립 내역 가져오기
+export const grantCoinsListApi = () => client.get("/coins");
+
+//적립된 게시판 가져오기
+export const grantedImageApi = (imageId) => client.get(`/coins/${imageId}`);
+
 //아이템 구매
 export const buyItemApi = (itemId, itemName, price) =>
   client.post("/items/buy", { itemId, itemName, price });

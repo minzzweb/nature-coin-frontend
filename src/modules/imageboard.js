@@ -104,6 +104,7 @@ function* fetchMainImageListSaga() {
   yield put(startLoading(FETCH_MAINIMAGE_LIST));
   try {
     const response = yield call(fetchItemListApi);
+
     yield put(fetchMainListSuccess(response.data));
   } catch (e) {
     yield put(fetchMainListFailure(e));

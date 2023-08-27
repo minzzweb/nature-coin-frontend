@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 //액션 타입
 const SET_ACCESS_TOKEN = "auth/SET_ACCESS_TOKEN";
 const LOGIN = "auth/LOGIN";
+const LOGIN_FAILURE = "auth/LOGIN_FAILURE";
 const SET_MY_INFO = "auth/SET_MY_INFO";
 const CHECK_MY_INFO = "auth/CHECK_MY_INFO";
 
@@ -20,6 +21,8 @@ export const login = createAction(LOGIN, ({ email, password }) => ({
   password,
   //아이디, 비번 받아옴
 }));
+
+export const loginfailure = createAction(LOGIN_FAILURE, (e) => e);
 
 //사용자정보 설정
 export const setMyInfo = createAction(SET_MY_INFO, (myInfo) => myInfo);
@@ -43,7 +46,7 @@ function* loginSaga(action) {
     //쿠키에 액세스토큰 저장
     Cookies.set("accessToken", accessToken, { expires: 1 });
   } catch (e) {
-    console.log(e);
+    yield put(loginfailure(e));
   }
 }
 
@@ -54,7 +57,7 @@ function* checkMyInfoSaga() {
 
     yield put(setMyInfo(response.data));
   } catch (e) {
-    console.log(e);
+    console.log("??");
   }
 }
 
@@ -68,6 +71,7 @@ const initialState = {
   accessToken: "",
   //로그인한 사용자 정보
   myInfo: null,
+  error: null,
 };
 
 //리듀서
@@ -80,6 +84,10 @@ const auth = handleActions(
     [SET_MY_INFO]: (state, action) => ({
       ...state,
       myInfo: action.payload,
+    }),
+    [LOGIN_FAILURE]: (state, action) => ({
+      ...state,
+      error: action.payload,
     }),
   },
   initialState

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchImage, FETCH_IMAGE } from "../../modules/imageboard";
 import ImageRead from "../../components/Image_board/ImageRead";
@@ -6,23 +6,26 @@ import { useParams } from "react-router-dom";
 import { removeImageApi } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
 import { grantCoinsToUserApi } from "../../lib/api";
+import { fetchGranted } from "../../modules/coin";
 
 const ImageReadContainer = () => {
   const { imageId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { image, categoryName, isLoading, myInfo } = useSelector(
-    ({ image, loading, auth }) => ({
+  const { image, categoryName, isLoading, myInfo, grantedImage } = useSelector(
+    ({ image, loading, auth, coin }) => ({
       image: image.image,
       categoryName: image.categoryName,
       isLoading: loading[FETCH_IMAGE],
       myInfo: auth.myInfo,
+      grantedImage: coin.grantedImage,
     })
   );
 
   useEffect(() => {
     dispatch(fetchImage(imageId));
+    dispatch(fetchGranted(imageId));
   }, [dispatch, imageId]);
 
   //삭제 함수
@@ -39,8 +42,14 @@ const ImageReadContainer = () => {
   //코인 적립 함수
   const onGrantCoin = async () => {
     try {
-      await grantCoinsToUserApi(image.imageId, image.imageWriter, 500);
-      alert("코인이 적립되었습니다.");
+      const response = await grantCoinsToUserApi(
+        image.imageId,
+        image.imageWriter,
+        500
+      );
+      alert(response.data);
+
+      dispatch(fetchGranted(imageId));
     } catch (error) {
       console.log("Error granting coins:", error);
     }
@@ -55,6 +64,7 @@ const ImageReadContainer = () => {
       onRemove={onRemove}
       myInfo={myInfo}
       onGrantCoin={onGrantCoin}
+      grantedImage={grantedImage}
     />
   );
 };

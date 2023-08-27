@@ -7,10 +7,11 @@ import {
   FETCH_MYIMAGE_LIST,
   fetchMainImageList,
 } from "../../modules/imageboard";
-import { getAuthorized, isAdmin, isMember } from "../../modules/selector"; //로그인 여부
+import { getAuthorized, isAdmin, isMember } from "../../modules/selector";
 import Profile from "../../components/mypage/Profile";
 import MyImageList from "../../components/mypage/MyImageList";
 import { fetchUserItemList, FETCH_USERITEMLIST } from "../../modules/useritem";
+import { fetchGrantedList } from "../../modules/coin";
 import MyItemList from "../../components/mypage/MyItemList";
 import MyPageMenu from "../../components/mypage/MyPageMenu";
 
@@ -26,7 +27,8 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     isImageListLoading,
     isUseritemListLoading,
     userItems,
-  } = useSelector(({ member, loading, auth, image, useritem }) => ({
+    grantedImages,
+  } = useSelector(({ member, loading, auth, image, useritem, coin }) => ({
     member: member.member,
     isLoading: loading[FETCH_MEMBER_ONE],
     myInfo: auth.myInfo,
@@ -34,6 +36,7 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     isImageListLoading: loading[FETCH_MYIMAGE_LIST],
     userItems: useritem.userItems,
     isUseritemListLoading: loading[FETCH_USERITEMLIST],
+    grantedImages: coin.grantedImages,
   }));
 
   const [showImageList, setShowImageList] = useState(true);
@@ -77,6 +80,10 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     }
   }, [myInfo, isAdmin]);
 
+  useEffect(() => {
+    dispatch(fetchGrantedList());
+  }, [dispatch]);
+
   return (
     <>
       <Profile
@@ -98,7 +105,11 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
         showUserItemList={showUserItemList}
       />
       {showImageList && (
-        <MyImageList images={images} isLoading={isImageListLoading} />
+        <MyImageList
+          images={images}
+          isLoading={isImageListLoading}
+          grantedImages={grantedImages}
+        />
       )}
       {showUserItemList && isMember && (
         <MyItemList userItems={userItems} isLoading={isUseritemListLoading} />

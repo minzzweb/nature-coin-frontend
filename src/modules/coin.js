@@ -1,57 +1,83 @@
 import { createAction, handleActions } from "redux-actions";
-
 import { takeLatest, call, put } from "redux-saga/effects";
 import { startLoading, endLoading } from "../modules/loading";
+import * as api from "../lib/api";
 
 //액션타입
-export const FETCH_GRANTCOIN_LIST = "coin/FETCH_GRANTCOIN_LIST";
-const FETCH_GRANTCOIN_LIST_SUCCESS = "coin/FETCH_GRANTCOIN_LIST_SUCCESS";
-const FETCH_GRANTCOIN_LIST_FAILURE = "coin/FETCH_GRANTCOIN_LIST_FAILURE";
+//코인지급된 게시판 목록
+export const FETCH_GRANTED_LIST = "coin/FETCH_GRANTCOIN_LIST";
+const FETCH_GRANTED_LIST_SUCCESS = "coin/FETCH_GRANTCOIN_LIST_SUCCESS";
+const FETCH_GRANTED_LIST_FAILURE = "coin/FETCH_GRANTCOIN_LIST_FAILURE";
+
+//코인지급된 게시판
+export const FETCH_GRANTED = "coin/FETCH_GRANTED";
+const FETCH_GRANTED_SUCCESS = "coin/FETCH_GRANTED_SUCCESS";
+const FETCH_GRANTED_FAILURE = "coin/FETCH_GRANTED_FAILURE";
 
 //액션 생성함수
-export const fetchGrantCoinList = createAction(FETCH_GRANTCOIN_LIST);
+export const fetchGrantedList = createAction(FETCH_GRANTED_LIST);
+export const fetchGranted = createAction(FETCH_GRANTED, (imageId) => imageId);
 
-const fetchCoinListSuccess = createAction(
-  FETCH_GRANTCOIN_LIST_SUCCESS,
+const fetchGrantedListSuccess = createAction(
+  FETCH_GRANTED_LIST_SUCCESS,
   (data) => data
 );
 
-const fetchCoinListfailure = createAction(
-  FETCH_GRANTCOIN_LIST_FAILURE,
+const fetchGrantedListfailure = createAction(
+  FETCH_GRANTED_LIST_FAILURE,
   (e) => e
 );
 
-function* fetchCoinListSaga() {
-  yield put(startLoading(FETCH_GRANTCOIN_LIST));
+const fetchGrantedSuccess = createAction(FETCH_GRANTED_SUCCESS, (data) => data);
+
+const fetchGrantedfailure = createAction(FETCH_GRANTED_FAILURE, (e) => e);
+
+function* fetchGrantedListSaga() {
+  yield put(startLoading(FETCH_GRANTED_LIST));
   try {
-    const response = yield call("충전내역 가져오는 api추가");
-    yield put(fetchCoinListSuccess(response.data));
+    const response = yield call(api.grantCoinsListApi);
+    yield put(fetchGrantedListSuccess(response.data));
   } catch (e) {
-    yield put(fetchCoinListfailure(e));
+    yield put(fetchGrantedListfailure(e));
   }
-  yield put(endLoading(FETCH_GRANTCOIN_LIST));
+  yield put(endLoading(FETCH_GRANTED_LIST));
+}
+
+function* fetchGrantedSaga(action) {
+  try {
+    const response = yield call(api.grantedImageApi, action.payload);
+    yield put(fetchGrantedSuccess(response.data));
+  } catch (e) {
+    yield put(fetchGrantedfailure(e));
+  }
 }
 
 export function* coinSaga() {
-  yield takeLatest(FETCH_GRANTCOIN_LIST, fetchCoinListSaga);
+  yield takeLatest(FETCH_GRANTED_LIST, fetchGrantedListSaga);
+  yield takeLatest(FETCH_GRANTED, fetchGrantedSaga);
 }
 
 const initialState = {
-  chargeCoins: [],
+  grantedImage: null,
+  grantedImages: [],
   error: null,
 };
 
 const coin = handleActions(
   {
-    [FETCH_GRANTCOIN_LIST]: (state) => ({
+    [FETCH_GRANTED_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      chargeCoins: [],
+      grantedImages: action.payload,
     }),
-    [FETCH_GRANTCOIN_LIST_SUCCESS]: (state, action) => ({
+    [FETCH_GRANTED_LIST_FAILURE]: (state, action) => ({
       ...state,
-      chargeCoins: action.payload,
+      error: action.payload,
     }),
-    [FETCH_GRANTCOIN_LIST_FAILURE]: (state, action) => ({
+    [FETCH_GRANTED_SUCCESS]: (state, action) => ({
+      ...state,
+      grantedImage: action.payload,
+    }),
+    [FETCH_GRANTED_FAILURE]: (state, action) => ({
       ...state,
       error: action.payload,
     }),

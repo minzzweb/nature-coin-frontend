@@ -10,7 +10,7 @@ import SquareIcon from "@mui/icons-material/Square";
 import Typography from "@mui/joy/Typography";
 import ListSubheader from "@mui/material/ListSubheader";
 
-const Image = ({ images, categoryName, isLoading }) => {
+const Image = ({ images, categoryName, isLoading, grantedImages }) => {
   const pictureUrl = (imageId) => {
     return (
       "/image/display?imageId=" + imageId + "&timestamp=" + new Date().getTime()
@@ -21,6 +21,48 @@ const Image = ({ images, categoryName, isLoading }) => {
     const formattedDate = regDate.replace(/-/g, "");
     return formattedDate;
   };
+  const renderImageListItem = (image) => (
+    <ImageListItem sx={style.ImageImageListItem}>
+      <Box>
+        <SquareIcon sx={style.SquareIcon1} />
+        <SquareIcon sx={style.SquareIcon2} />
+        <SquareIcon sx={style.SquareIcon3} />
+        <PlayArrowIcon sx={style.PlayArrowIcon} />
+        <Typography sx={style.ImageDate}>{imageDate(image.regDate)}</Typography>
+      </Box>
+      <img
+        src={`${pictureUrl(image.imageId)}?w=300&fit=crop&auto=format`}
+        srcSet={`${pictureUrl(
+          image.imageId
+        )}?w=300&fit=crop&auto=format&dpr=2 2x`}
+        alt={image.imageTitle}
+        loading="lazy"
+        style={style.ImageImageListItem}
+      />
+
+      {grantedImages &&
+      grantedImages.some((coin) => coin.imageId === image.imageId) ? (
+        <Box sx={style.grantCoinsRockBox1}>
+          <Box sx={style.grantCoinsRockBox2}>
+            <Typography sx={style.grantCoinsTypography}>
+              코인 적립 완료
+            </Typography>
+          </Box>
+        </Box>
+      ) : null}
+
+      <ImageListItemBar
+        title={image.imageTitle}
+        subtitle={image.imageWriter}
+        actionIcon={
+          <IconButton
+            sx={style.ImageIconButton}
+            aria-label={`info about ${image.title}`}
+          ></IconButton>
+        }
+      />
+    </ImageListItem>
+  );
 
   return (
     <Box>
@@ -45,41 +87,14 @@ const Image = ({ images, categoryName, isLoading }) => {
 
           {images.map((image) => (
             <Box style={{ width: "300px" }} key={image.imageId}>
-              <Link to={"/image/read/" + image.imageId}>
-                <ImageListItem sx={style.ImageImageListItem}>
-                  <Box>
-                    <SquareIcon sx={style.SquareIcon1} />
-                    <SquareIcon sx={style.SquareIcon2} />
-                    <SquareIcon sx={style.SquareIcon3} />
-                    <PlayArrowIcon sx={style.PlayArrowIcon} />
-                    <Typography sx={style.ImageDate}>
-                      {imageDate(image.regDate)}
-                    </Typography>
-                  </Box>
-                  <img
-                    src={`${pictureUrl(
-                      image.imageId
-                    )}?w=300&fit=crop&auto=format`}
-                    srcSet={`${pictureUrl(
-                      image.imageId
-                    )}?w=300&fit=crop&auto=format&dpr=2 2x`}
-                    alt={image.imageTitle}
-                    loading="lazy"
-                    style={style.ImageImageListItem}
-                  />
-
-                  <ImageListItemBar
-                    title={image.imageTitle}
-                    subtitle={image.imageWriter}
-                    actionIcon={
-                      <IconButton
-                        sx={style.ImageIconButton}
-                        aria-label={`info about ${image.title}`}
-                      ></IconButton>
-                    }
-                  />
-                </ImageListItem>
-              </Link>
+              {grantedImages &&
+              grantedImages.some((coin) => coin.imageId === image.imageId) ? (
+                renderImageListItem(image)
+              ) : (
+                <Link to={"/image/read/" + image.imageId}>
+                  {renderImageListItem(image)}
+                </Link>
+              )}
             </Box>
           ))}
         </ImageList>
