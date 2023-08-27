@@ -9,6 +9,8 @@ import Option from "@mui/joy/Option";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
 import style from "../common/style";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ImageRegisterForm = ({ onRegister }) => {
   const categories = {
@@ -60,6 +62,7 @@ const ImageRegisterForm = ({ onRegister }) => {
 
   return (
     <Box sx={style.ImageBoardContainer}>
+      <ToastContainer />
       <Typography level="h3" sx={style.ImageBoardTitle}>
         Register your photo and get coins!
       </Typography>
