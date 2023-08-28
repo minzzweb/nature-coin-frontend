@@ -23,8 +23,12 @@ export const fetchImageApi = (imageId) => client.get(`/image/${imageId}`);
 export const removeImageApi = (imageId) => client.delete(`/image/${imageId}`);
 
 //이미지 카테고리별 목록
-export const fetchItemListByCategoryApi = (categoryName) =>
-  client.get(`/image/list/${categoryName}`);
+export const fetchItemListByCategoryApi = (categoryName, currentPage) =>
+  client.get(`/image/list/${categoryName}`, {
+    params: {
+      page: currentPage,
+    },
+  });
 
 //이미지 메인 목록
 export const fetchItemListApi = () => client.get("/image");

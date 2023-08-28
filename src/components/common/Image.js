@@ -9,8 +9,17 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SquareIcon from "@mui/icons-material/Square";
 import Typography from "@mui/joy/Typography";
 import ListSubheader from "@mui/material/ListSubheader";
+import BasicPagination from "./BasicPagination";
 
-const Image = ({ images, categoryName, isLoading, grantedImages }) => {
+const Image = ({
+  images,
+  categoryName,
+  isLoading,
+  grantedImages,
+  count,
+  currentPage,
+  handlePageChange,
+}) => {
   const pictureUrl = (imageId) => {
     return (
       "/image/display?imageId=" + imageId + "&timestamp=" + new Date().getTime()
@@ -99,6 +108,12 @@ const Image = ({ images, categoryName, isLoading, grantedImages }) => {
           ))}
         </ImageList>
       )}
+
+      <BasicPagination
+        count={count}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+      />
     </Box>
   );
 };

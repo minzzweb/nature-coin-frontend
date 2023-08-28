@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "../../components/common/Image";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,21 +7,34 @@ import { Box } from "@mui/material";
 import style from "../../components/common/style";
 
 const CategoryContainer = () => {
+  const dispatch = useDispatch();
   const { category } = useParams();
 
-  const dispatch = useDispatch();
+  // 현재 페이지
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { images, categoryName, isLoading } = useSelector(
+  const { images, categoryName, isLoading, count } = useSelector(
     ({ image, loading }) => ({
       images: image.images,
       categoryName: category,
       isLoading: loading[FETCH_IMAGE_LIST],
+      count: image.count,
     })
   );
 
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
   useEffect(() => {
-    dispatch(fetchImageList(categoryName));
-  }, [dispatch, categoryName]);
+    setCurrentPage(1);
+  }, [categoryName]);
+
+  // 이미지 목록 호출
+  useEffect(() => {
+    dispatch(fetchImageList(categoryName, currentPage));
+    console.log("currentPage?? " + currentPage);
+  }, [dispatch, categoryName, currentPage]);
 
   return (
     <Box sx={style.marginLayout}>
@@ -29,6 +42,9 @@ const CategoryContainer = () => {
         images={images}
         categoryName={categoryName}
         isLoading={isLoading}
+        count={count}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
       />
     </Box>
   );

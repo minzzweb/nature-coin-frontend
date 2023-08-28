@@ -36,7 +36,7 @@ export const fetchFailure = createAction(FETCH_FAILURE, (e) => e);
 //이미지게시판 목록------------------------------------------------------------
 export const fetchListSuccess = createAction(
   FETCH_LIST_SUCCESS,
-  (data) => data
+  (images, totalPageCount) => ({ images, totalPageCount })
 );
 export const fetchListFailure = createAction(FETCH_LIST_FAILURE, (e) => e);
 
@@ -65,7 +65,10 @@ export const fetchMyImageLisFailure = createAction(
 export const fetchImage = createAction(FETCH_IMAGE, (imageId) => imageId);
 export const fetchImageList = createAction(
   FETCH_IMAGE_LIST,
-  (categoryName) => categoryName
+  (categoryName, currentPage) => ({
+    categoryName,
+    currentPage,
+  })
 );
 export const fetchMainImageList = createAction(FETCH_MAINIMAGE_LIST);
 export const fetchMyImageList = createAction(
@@ -91,8 +94,16 @@ function* fetchImageSaga(action) {
 function* fetchImageListSaga(action) {
   yield put(startLoading(FETCH_IMAGE_LIST));
   try {
-    const response = yield call(fetchItemListByCategoryApi, action.payload);
-    yield put(fetchListSuccess(response.data));
+    const { categoryName, currentPage } = action.payload;
+
+    const response = yield call(
+      fetchItemListByCategoryApi,
+      categoryName,
+      currentPage
+    );
+    yield put(
+      fetchListSuccess(response.data.page.content, response.data.totalPageCount)
+    );
   } catch (e) {
     yield put(fetchListFailure(e));
   }
@@ -137,6 +148,7 @@ const initialState = {
   images: [],
   error: null,
   categoryName: null,
+  count: 0,
 };
 
 const image = handleActions(
@@ -153,7 +165,8 @@ const image = handleActions(
     }),
     [FETCH_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      images: action.payload,
+      images: action.payload.images,
+      count: action.payload.totalPageCount,
     }),
     [FETCH_LIST_FAILURE]: (state, action) => ({
       ...state,
