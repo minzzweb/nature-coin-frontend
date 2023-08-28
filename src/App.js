@@ -45,6 +45,10 @@ function App() {
           path="/member/mypage/edit/:userNo"
           element={<ModifyProfileContainer />}
         />
+        <Route
+          path="/member/image/read/:imageId"
+          element={<ImageReadContainer />}
+        />
 
         {/*관리자*/}
         <Route path="/member/setup" element={<AdminSetupContainer />} />
