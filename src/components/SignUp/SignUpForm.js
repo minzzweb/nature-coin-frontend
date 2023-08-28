@@ -11,7 +11,7 @@ import { Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import style from "../common/style.js";
 
-const SignUpForm = ({ onSignUp }) => {
+const SignUpForm = ({ onSignUp, handleCheckDuplicate }) => {
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("유효한 이메일 주소를 입력해주세요")
@@ -51,7 +51,6 @@ const SignUpForm = ({ onSignUp }) => {
     >
       {({ values, handleSubmit, handleChange, errors }) => (
         <Box sx={style.SetupContainer}>
-          <ToastContainer />
           <Typography variant="h4" gutterBottom sx={style.SetupTitle}>
             NATURE COIN
           </Typography>
@@ -104,7 +103,7 @@ const SignUpForm = ({ onSignUp }) => {
                 <Box>
                   <Button
                     type="button"
-                    // onClick={handleCheckDuplicate}
+                    onClick={() => handleCheckDuplicate(values)}
                     sx={style.SignUpCheckBtn}
                   >
                     <Typography>확인</Typography>

@@ -11,7 +11,7 @@ import { Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import style from "../common/style.js";
 
-const AdminSetupForm = ({ onRegister }) => {
+const AdminSetupForm = ({ onRegister, handleCheckDuplicate }) => {
   //const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -52,7 +52,6 @@ const AdminSetupForm = ({ onRegister }) => {
     >
       {({ values, handleSubmit, handleChange, errors }) => (
         <Box sx={style.SetupContainer}>
-          <ToastContainer />
           <Typography variant="h4" gutterBottom sx={style.SetupTitle}>
             최초 관리자 등록
           </Typography>
@@ -103,7 +102,7 @@ const AdminSetupForm = ({ onRegister }) => {
                 <Box>
                   <Button
                     type="button"
-                    // onClick={handleCheckDuplicate}
+                    onClick={() => handleCheckDuplicate(values)}
                     sx={style.SignInIdCheckText}
                   >
                     <Typography>확인</Typography>

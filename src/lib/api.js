@@ -93,3 +93,7 @@ export const fetchMyItemList = (currentPage) =>
       page: currentPage,
     },
   });
+
+//닉네임 중복
+export const checkNicknameApi = (nickname) =>
+  client.get(`/users/check/${nickname}`);
