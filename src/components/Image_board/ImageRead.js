@@ -13,9 +13,10 @@ const ImageRead = ({
   categoryName,
   onRemove,
   myInfo,
-  isMyPage,
+  isMypage,
   onGrantCoin,
   grantedImage,
+  currentPage,
 }) => {
   // 이미지 표시 URL 생성
   const pictureUrl = () => {
@@ -24,7 +25,6 @@ const ImageRead = ({
     );
   };
 
-  console.log("grantedImage ?? : " + grantedImage);
   const profilepictureUrl = () => {
     return (
       "/image/display/profile?imageWriter=" +
@@ -47,6 +47,7 @@ const ImageRead = ({
     isAdmin = true;
   }
 
+  console.log("read currentPage" + currentPage);
   return (
     <Box sx={style.ImageBoardContainer}>
       <Box sx={style.ImageBoardTitle}></Box>
@@ -162,9 +163,9 @@ const ImageRead = ({
             <Button
               component={Link}
               to={
-                isMyPage
-                  ? `/member/mypage/${myInfo.userNo}`
-                  : `/image/list/${categoryName}`
+                isMypage
+                  ? `/member/mypage/${myInfo.userNo}?page=${currentPage}`
+                  : `/image/list/${categoryName}?page=${currentPage}`
               }
               size="sm"
               sx={style.ImageListBtn}

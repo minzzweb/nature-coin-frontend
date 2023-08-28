@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HomePosts from "./HomePosts";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import style from "../common/style";
 
 const HomeSection = () => {
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { images, isLoading } = useSelector(({ image, loading }) => ({
     images: image.images,
@@ -26,7 +27,11 @@ const HomeSection = () => {
       <Typography level="h2" sx={{ color: "#EA9A3E" }}>
         Recent Images
       </Typography>
-      <HomePosts images={images} isLoading={isLoading} />
+      <HomePosts
+        images={images}
+        isLoading={isLoading}
+        currentPage={currentPage}
+      />
     </Box>
   );
 };

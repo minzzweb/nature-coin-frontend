@@ -10,7 +10,7 @@ import SquareIcon from "@mui/icons-material/Square";
 import Typography from "@mui/joy/Typography";
 import ListSubheader from "@mui/material/ListSubheader";
 import BasicPagination from "./BasicPagination";
-
+import { useLocation } from "react-router-dom";
 const Image = ({
   images,
   categoryName,
@@ -25,6 +25,9 @@ const Image = ({
       "/image/display?imageId=" + imageId + "&timestamp=" + new Date().getTime()
     );
   };
+
+  const location = useLocation();
+  const isMypage = location.pathname.includes("mypage");
 
   const imageDate = (regDate) => {
     const formattedDate = regDate.replace(/-/g, "");
@@ -104,7 +107,13 @@ const Image = ({
               grantedImages.some((coin) => coin.imageId === image.imageId) ? (
                 renderImageListItem(image)
               ) : (
-                <Link to={"/image/read/" + image.imageId}>
+                <Link
+                  to={
+                    isMypage
+                      ? `/member/image/read/${image.imageId}?page=${currentPage}`
+                      : `/image/read/${image.imageId}?page=${currentPage}`
+                  }
+                >
                   {renderImageListItem(image)}
                 </Link>
               )}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { fetchMember, FETCH_MEMBER_ONE } from "../../modules/member";
 import {
   fetchMyImageList,
@@ -14,10 +14,13 @@ import { fetchUserItemList, FETCH_USERITEMLIST } from "../../modules/useritem";
 import { fetchGrantedList } from "../../modules/coin";
 import MyItemList from "../../components/mypage/MyItemList";
 import MyPageMenu from "../../components/mypage/MyPageMenu";
-import BasicPagination from "../../components/common/BasicPagination";
 const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   const { userNo } = useParams();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const urlPage = queryParams.get("page");
+  const parsedUrlPage = parseInt(urlPage, 10);
 
   const {
     member,
@@ -72,25 +75,38 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     console.log(currentPage);
   };
 
+  //적립된 이미지 리스트 가져오기
+  useEffect(() => {
+    dispatch(fetchGrantedList());
+  }, [dispatch]);
+
+  //유저정보 가져오기
   useEffect(() => {
     dispatch(fetchMember(userNo));
   }, [dispatch, userNo]);
 
+  //유저면 내 이미지 리스트 가져오기
   useEffect(() => {
     if (myInfo && isMember) {
       myImageList();
     }
   }, [myInfo, isMember, currentPage]);
 
+  //관리자면 전체 이미지 리스트 가져오기
   useEffect(() => {
     if (myInfo && isAdmin) {
       imageListAll();
     }
   }, [myInfo, isAdmin, currentPage]);
 
+  //parsedUrlPage 바뀔 때 parsedUrlPage값으로 목록 호출
   useEffect(() => {
-    dispatch(fetchGrantedList());
-  }, [dispatch]);
+    if (!isNaN(parsedUrlPage)) {
+      setCurrentPage(parsedUrlPage);
+    } else {
+      setCurrentPage(currentPage);
+    }
+  }, [parsedUrlPage]);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);

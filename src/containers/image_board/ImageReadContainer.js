@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchImage, FETCH_IMAGE } from "../../modules/imageboard";
 import ImageRead from "../../components/Image_board/ImageRead";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { removeImageApi } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
 import { grantCoinsToUserApi } from "../../lib/api";
@@ -12,6 +12,12 @@ const ImageReadContainer = () => {
   const { imageId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const currentPage = queryParams.get("page");
+  const isMypage = location.pathname.includes("member");
+
+  console.log("isMypage " + isMypage);
 
   const { image, categoryName, isLoading, myInfo, grantedImage } = useSelector(
     ({ image, loading, auth, coin }) => ({
@@ -65,6 +71,8 @@ const ImageReadContainer = () => {
       myInfo={myInfo}
       onGrantCoin={onGrantCoin}
       grantedImage={grantedImage}
+      currentPage={currentPage}
+      isMypage={isMypage}
     />
   );
 };
