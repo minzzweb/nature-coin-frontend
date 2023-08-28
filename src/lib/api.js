@@ -31,7 +31,12 @@ export const fetchItemListByCategoryApi = (categoryName, currentPage) =>
   });
 
 //이미지 메인 목록
-export const fetchItemListApi = () => client.get("/image");
+export const fetchItemListApi = (currentPage) =>
+  client.get("/image", {
+    params: {
+      page: currentPage,
+    },
+  });
 
 //회원가입
 export const signUp = (email, nickname, password) =>
@@ -60,8 +65,12 @@ export const modifyMemberApi = (formData) =>
   });
 
 //회원 이미지 게시글 목록
-export const fetchMyImageListApi = (nickname) =>
-  client.get(`/image/mypage/list/myimage/${nickname}`);
+export const fetchMyImageListApi = (imageWriter, currentPage) =>
+  client.get(`/image/mypage/list/myimage/${imageWriter}`, {
+    params: {
+      page: currentPage,
+    },
+  });
 
 //코인 적립
 export const grantCoinsToUserApi = (imageId, imagewriter, amount) =>
@@ -78,4 +87,9 @@ export const buyItemApi = (itemId, itemName, price) =>
   client.post("/items/buy", { itemId, itemName, price });
 
 //내 상품 목록 가져오기
-export const fetchMyItemList = () => client.get("/useritems");
+export const fetchMyItemList = (currentPage) =>
+  client.get("/useritems", {
+    params: {
+      page: currentPage,
+    },
+  });

@@ -7,10 +7,13 @@ export const FETCH_USERITEMLIST = "useritem/FETCH_USERITEMLIST";
 const FETCH_ITEMLIST_SUCCESS = "useritem/FETCH_ITEMLIST_SUCCESS";
 const FETCH_ITEMLIST_FAILURE = "useritem/FETCH_ITEMLIST_FAILURE";
 
-export const fetchUserItemList = createAction(FETCH_USERITEMLIST);
+export const fetchUserItemList = createAction(
+  FETCH_USERITEMLIST,
+  (currentPage) => currentPage
+);
 const fetchUserItemSuccess = createAction(
   FETCH_ITEMLIST_SUCCESS,
-  (data) => data
+  (userItems, totalPageCount) => ({ userItems, totalPageCount })
 );
 const fetchUserItemFailure = createAction(FETCH_ITEMLIST_SUCCESS, (e) => e);
 
@@ -20,7 +23,12 @@ function* fetchUserItemSaga(action) {
   try {
     const response = yield call(api.fetchMyItemList, action.payload);
 
-    yield put(fetchUserItemSuccess(response.data));
+    yield put(
+      fetchUserItemSuccess(
+        response.data.page.content,
+        response.data.totalPageCount
+      )
+    );
   } catch (e) {
     yield put(fetchUserItemFailure(e));
   }
@@ -35,6 +43,8 @@ export function* userItemSaga() {
 const initialState = {
   userItems: [],
   error: null,
+  categoryName: null,
+  count: 0,
 };
 
 const useritem = handleActions(
@@ -45,7 +55,8 @@ const useritem = handleActions(
     }),
     [FETCH_ITEMLIST_SUCCESS]: (state, action) => ({
       ...state,
-      userItems: action.payload,
+      userItems: action.payload.userItems,
+      count: action.payload.totalPageCount,
     }),
     [FETCH_ITEMLIST_FAILURE]: (state, action) => ({
       ...state,

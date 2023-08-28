@@ -14,7 +14,7 @@ import { fetchUserItemList, FETCH_USERITEMLIST } from "../../modules/useritem";
 import { fetchGrantedList } from "../../modules/coin";
 import MyItemList from "../../components/mypage/MyItemList";
 import MyPageMenu from "../../components/mypage/MyPageMenu";
-
+import BasicPagination from "../../components/common/BasicPagination";
 const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   const { userNo } = useParams();
   const dispatch = useDispatch();
@@ -28,6 +28,8 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     isUseritemListLoading,
     userItems,
     grantedImages,
+    count,
+    userItemCount,
   } = useSelector(({ member, loading, auth, image, useritem, coin }) => ({
     member: member.member,
     isLoading: loading[FETCH_MEMBER_ONE],
@@ -37,31 +39,37 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     userItems: useritem.userItems,
     isUseritemListLoading: loading[FETCH_USERITEMLIST],
     grantedImages: coin.grantedImages,
+    count: image.count,
+    userItemCount: useritem.count,
   }));
 
   const [showImageList, setShowImageList] = useState(true);
 
   const [showUserItemList, setShowUserItemList] = useState(true);
 
-  //내 이미지 가져오기 함수
+  const [currentPage, setCurrentPage] = useState(1);
+
+  //내 이미지 가져오기 함수(유저)
   const myImageList = async () => {
     const imageWriter = myInfo.nickname;
-    dispatch(fetchMyImageList(imageWriter));
+    dispatch(fetchMyImageList(imageWriter, currentPage));
     setShowImageList(true);
     setShowUserItemList(false);
   };
 
-  //전체 이미지 가져오기 함수
+  //전체 이미지 가져오기 함수(관리자)
   const imageListAll = async () => {
-    dispatch(fetchMainImageList());
+    dispatch(fetchMainImageList(currentPage));
     setShowImageList(true);
   };
 
   //내가 산 기프티콘 가져오기 함
   const userItemList = async () => {
-    dispatch(fetchUserItemList());
+    dispatch(fetchUserItemList(currentPage));
+    setCurrentPage(1);
     setShowImageList(false);
     setShowUserItemList(true);
+    console.log(currentPage);
   };
 
   useEffect(() => {
@@ -72,17 +80,21 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     if (myInfo && isMember) {
       myImageList();
     }
-  }, [myInfo, isMember]);
+  }, [myInfo, isMember, currentPage]);
 
   useEffect(() => {
     if (myInfo && isAdmin) {
       imageListAll();
     }
-  }, [myInfo, isAdmin]);
+  }, [myInfo, isAdmin, currentPage]);
 
   useEffect(() => {
     dispatch(fetchGrantedList());
   }, [dispatch]);
+
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <>
@@ -109,10 +121,19 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
           images={images}
           isLoading={isImageListLoading}
           grantedImages={grantedImages}
+          count={count}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
         />
       )}
       {showUserItemList && isMember && (
-        <MyItemList userItems={userItems} isLoading={isUseritemListLoading} />
+        <MyItemList
+          userItems={userItems}
+          isLoading={isUseritemListLoading}
+          count={userItemCount}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+        />
       )}
     </>
   );

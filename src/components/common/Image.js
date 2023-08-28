@@ -76,6 +76,7 @@ const Image = ({
   return (
     <Box>
       {isLoading && "로딩중..."}
+
       {!isLoading && images && (
         <ImageList sx={style.ImageImageList}>
           <ImageListItem key="Subheader" cols={4}>
@@ -91,6 +92,9 @@ const Image = ({
                   {categoryName}
                 </Typography>
               </ListSubheader>
+            )}
+            {!isLoading && images.length === 0 && (
+              <Typography>작성된 글이 없습니다!</Typography>
             )}
           </ImageListItem>
 
@@ -109,11 +113,13 @@ const Image = ({
         </ImageList>
       )}
 
-      <BasicPagination
-        count={count}
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-      />
+      {count > 0 && (
+        <BasicPagination
+          count={count}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+        />
+      )}
     </Box>
   );
 };

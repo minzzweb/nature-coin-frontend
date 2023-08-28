@@ -43,7 +43,7 @@ export const fetchListFailure = createAction(FETCH_LIST_FAILURE, (e) => e);
 //메인 목록-----------------------------------------------------------------
 export const fetchMainListSuccess = createAction(
   FETCH_MAIN_LIST_SUCCESS,
-  (data) => data
+  (images, totalPageCount) => ({ images, totalPageCount })
 );
 export const fetchMainListFailure = createAction(
   FETCH_MAIN_LIST_FAILURE,
@@ -53,7 +53,7 @@ export const fetchMainListFailure = createAction(
 //마이페이지 목록------------------------------------------------------------
 export const fetchMyImageListSuccess = createAction(
   FETCH_MYIMAGELIST_SUCCESS,
-  (data) => data
+  (images, totalPageCount) => ({ images, totalPageCount })
 );
 
 export const fetchMyImageLisFailure = createAction(
@@ -70,10 +70,13 @@ export const fetchImageList = createAction(
     currentPage,
   })
 );
-export const fetchMainImageList = createAction(FETCH_MAINIMAGE_LIST);
+export const fetchMainImageList = createAction(
+  FETCH_MAINIMAGE_LIST,
+  (currentPage) => currentPage
+);
 export const fetchMyImageList = createAction(
   FETCH_MYIMAGE_LIST,
-  (nickname) => nickname
+  (imageWriter, currentPage) => ({ imageWriter, currentPage })
 );
 
 //상세 조회 테스크 작성
@@ -111,12 +114,17 @@ function* fetchImageListSaga(action) {
 }
 
 //메인 목록
-function* fetchMainImageListSaga() {
+function* fetchMainImageListSaga(action) {
   yield put(startLoading(FETCH_MAINIMAGE_LIST));
   try {
-    const response = yield call(fetchItemListApi);
+    const response = yield call(fetchItemListApi, action.payload);
 
-    yield put(fetchMainListSuccess(response.data));
+    yield put(
+      fetchMainListSuccess(
+        response.data.page.content,
+        response.data.totalPageCount
+      )
+    );
   } catch (e) {
     yield put(fetchMainListFailure(e));
   }
@@ -127,8 +135,14 @@ function* fetchMainImageListSaga() {
 function* fetchMyImageListSaga(action) {
   yield put(startLoading(FETCH_MYIMAGE_LIST));
   try {
-    const response = yield call(fetchMyImageListApi, action.payload);
-    yield put(fetchMyImageListSuccess(response.data));
+    const { imageWriter, currentPage } = action.payload;
+    const response = yield call(fetchMyImageListApi, imageWriter, currentPage);
+    yield put(
+      fetchMyImageListSuccess(
+        response.data.page.content,
+        response.data.totalPageCount
+      )
+    );
   } catch (e) {
     yield put(fetchMyImageLisFailure(e));
   }
@@ -174,7 +188,8 @@ const image = handleActions(
     }),
     [FETCH_MAIN_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      images: action.payload,
+      images: action.payload.images,
+      count: action.payload.totalPageCount,
     }),
     [FETCH_MAIN_LIST_FAILURE]: (state, action) => ({
       ...state,
@@ -182,7 +197,8 @@ const image = handleActions(
     }),
     [FETCH_MYIMAGELIST_SUCCESS]: (state, action) => ({
       ...state,
-      images: action.payload,
+      images: action.payload.images,
+      count: action.payload.totalPageCount,
     }),
     [FETCH_MYIMAGELIST_FAILURE]: (state, action) => ({
       ...state,
