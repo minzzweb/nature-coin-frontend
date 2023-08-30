@@ -12,7 +12,13 @@ import style from "../common/style";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { FormControlLabel } from "@mui/material";
 
-const ProfileModifyForm = ({ member, isLoading, onModify, myInfo }) => {
+const ProfileModifyForm = ({
+  member,
+  isLoading,
+  onModify,
+  myInfo,
+  handleCheckDuplicate,
+}) => {
   const [nickname, setNickname] = useState("");
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState("");
@@ -92,21 +98,13 @@ const ProfileModifyForm = ({ member, isLoading, onModify, myInfo }) => {
                   <Box>
                     <Button
                       type="button"
-                      // onClick={handleCheckDuplicate}
+                      onClick={() => handleCheckDuplicate({ nickname })}
                       sx={style.PfmIdPwdBtn}
                     >
                       <Typography sx={style.PfmText}>확인</Typography>
                     </Button>
                   </Box>
-                  {/* {isNicknameAvailable !== null && (
-                    <Typography
-                      sx={{ color: isNicknameAvailable ? "green" : "red" }}
-                    >
-                      {isNicknameAvailable
-                        ? "사용 가능한 아이디입니다."
-                        : "이미 사용 중인 아이디입니다."}
-                    </Typography>
-                  )} */}
+
                   <Box>
                     <Button
                       type="button"

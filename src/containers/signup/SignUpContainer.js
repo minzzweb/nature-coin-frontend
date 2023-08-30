@@ -60,18 +60,7 @@ const SignUpContainer = () => {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer position="top-right" autoClose={1000} />
       <SignUpForm
         onSignUp={onSignUp}
         handleCheckDuplicate={handleCheckDuplicate}

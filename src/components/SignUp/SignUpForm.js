@@ -21,7 +21,7 @@ const SignUpForm = ({ onSignUp, handleCheckDuplicate }) => {
       .max(10, "닉네임은 최대 10글자")
       .matches(
         /^[가-힣a-zA-Z][^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?\s]*$/,
-        "닉네임에는 특수문자나 숫자가 포함될 수 없습니다."
+        "영문 대 소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자 ."
       )
       .required("닉네임을 입력하세요."),
     password: Yup.string()
@@ -30,7 +30,7 @@ const SignUpForm = ({ onSignUp, handleCheckDuplicate }) => {
       .required("패스워드를 입력하세요.")
       .matches(
         /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[^\s]*$/,
-        "알파벳, 숫자, 공백을 제외한 특수문자를 모두 포함해야 합니다."
+        "공백을 제외한 특수문자를 모두 포함해야 합니다."
       ),
     password2: Yup.string()
       .oneOf([Yup.ref("password"), null], "비밀번호가 일치하지 않습니다.")
