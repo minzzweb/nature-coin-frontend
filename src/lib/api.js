@@ -66,7 +66,7 @@ export const modifyMemberApi = (formData) =>
 
 //회원 이미지 게시글 목록
 export const fetchMyImageListApi = (imageWriter, currentPage) =>
-  client.get(`/image/mypage/list/myimage/${imageWriter}`, {
+  client.get(`/image/myimage/${imageWriter}`, {
     params: {
       page: currentPage,
     },
