@@ -1,14 +1,14 @@
-import axios from "axios";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Input from "@mui/joy/Input";
 import FormLabel from "@mui/joy/FormLabel";
 import { Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
+import FaceIcon from "@mui/icons-material/Face";
+import KeyIcon from "@mui/icons-material/Key";
 import style from "../common/style.js";
 
 const SignUpForm = ({ onSignUp, handleCheckDuplicate }) => {
@@ -88,7 +88,7 @@ const SignUpForm = ({ onSignUp, handleCheckDuplicate }) => {
               {/*닉네임*/}
               <Box sx={style.SetupBox2}>
                 <FormLabel sx={style.SetupFormLabel}>
-                  <EmailIcon sx={{ color: "#51BC51" }} />
+                  <FaceIcon sx={{ color: "#51BC51" }} />
                   &nbsp; NICKNAME
                 </FormLabel>
                 &nbsp;
@@ -115,7 +115,7 @@ const SignUpForm = ({ onSignUp, handleCheckDuplicate }) => {
               {/*패스워드*/}
               <Box sx={style.SetupBox2}>
                 <FormLabel sx={style.SetupFormLabel}>
-                  <EmailIcon sx={{ color: "#51BC51" }} />
+                  <KeyIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD
                 </FormLabel>
                 <Input
@@ -133,7 +133,7 @@ const SignUpForm = ({ onSignUp, handleCheckDuplicate }) => {
               {/*패스워드 체크*/}
               <Box sx={style.SetupBox2}>
                 <FormLabel sx={style.SetupFormLabel}>
-                  <EmailIcon sx={{ color: "#51BC51" }} />
+                  <KeyIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD <br />
                   &nbsp; VALIDATE
                 </FormLabel>

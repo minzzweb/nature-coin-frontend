@@ -1,14 +1,13 @@
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Button } from "@mui/material";
 import Input from "@mui/joy/Input";
 import FormLabel from "@mui/joy/FormLabel";
 import { Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
+import FaceIcon from "@mui/icons-material/Face";
+import KeyIcon from "@mui/icons-material/Key";
 import style from "../common/style.js";
 
 const AdminSetupForm = ({ onRegister, handleCheckDuplicate }) => {
@@ -31,7 +30,7 @@ const AdminSetupForm = ({ onRegister, handleCheckDuplicate }) => {
       .required("패스워드를 입력하세요.")
       .matches(
         /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[^\s]*$/,
-        "알파벳, 숫자, 공백을 제외한 특수문자를 모두 포함해야 합니다."
+        "공백을 제외한 특수문자를 모두 포함해야 합니다."
       ),
     password2: Yup.string()
       .oneOf([Yup.ref("password"), null], "비밀번호가 일치하지 않습니다.")
@@ -87,7 +86,7 @@ const AdminSetupForm = ({ onRegister, handleCheckDuplicate }) => {
               {/*닉네임*/}
               <Box sx={style.SetupBox2}>
                 <FormLabel sx={style.SetupFormLabel}>
-                  <EmailIcon sx={{ color: "#51BC51" }} />
+                  <FaceIcon sx={{ color: "#51BC51" }} />
                   &nbsp; NICKNAME
                 </FormLabel>
                 &nbsp;
@@ -114,7 +113,7 @@ const AdminSetupForm = ({ onRegister, handleCheckDuplicate }) => {
               {/*패스워드*/}
               <Box sx={style.SetupBox2}>
                 <FormLabel sx={style.SetupFormLabel}>
-                  <EmailIcon sx={{ color: "#51BC51" }} />
+                  <KeyIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD
                 </FormLabel>
                 <Input
@@ -132,7 +131,7 @@ const AdminSetupForm = ({ onRegister, handleCheckDuplicate }) => {
               {/*패스워드 체크*/}
               <Box sx={style.SetupBox2}>
                 <FormLabel sx={style.SetupFormLabel}>
-                  <EmailIcon sx={{ color: "#51BC51" }} />
+                  <KeyIcon sx={{ color: "#51BC51" }} />
                   &nbsp; PASSWORD <br />
                   &nbsp; VALIDATE
                 </FormLabel>
