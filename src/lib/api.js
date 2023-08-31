@@ -97,3 +97,6 @@ export const fetchMyItemList = (currentPage) =>
 //닉네임 중복
 export const checkNicknameApi = (nickname) =>
   client.get(`/users/check/${nickname}`);
+
+//회원 유저 코인가져오기
+export const fetchUserCoin = () => client.get("/users/coin");

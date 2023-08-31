@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
@@ -17,6 +17,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 export default function Header({
   myInfo,
@@ -24,6 +25,7 @@ export default function Header({
   onLogout,
   isAdmin,
   isMember,
+  userCoin,
 }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
@@ -128,7 +130,7 @@ export default function Header({
 
           <Box sx={style.BoxRight}>
             {/* 로그아웃 시 안보이게 할것 */}
-            {isAuthorized && isMember && (
+            {isAuthorized && isMember && myInfo !== null && (
               <ListItem role="none">
                 <ListItemButton
                   role="menuitem"
@@ -139,7 +141,7 @@ export default function Header({
                   <ListItemDecorator>
                     <AttachMoneyIcon />
                   </ListItemDecorator>{" "}
-                  {myInfo.coin}
+                  <Typography>{userCoin}</Typography>
                 </ListItemButton>
               </ListItem>
             )}
