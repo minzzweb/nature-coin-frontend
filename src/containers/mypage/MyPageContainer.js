@@ -53,8 +53,10 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   //내 이미지 가져오기 함수(유저)
-  const myImageList = async () => {
-    const imageWriter = myInfo.nickname;
+  const myImageList = async (nickname) => {
+    const imageWriter = nickname;
+    console.log("imageWriter" + imageWriter);
+
     dispatch(fetchMyImageList(imageWriter, currentPage));
     setShowImageList(true);
     setShowUserItemList(false);
@@ -72,7 +74,6 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     setCurrentPage(1);
     setShowImageList(false);
     setShowUserItemList(true);
-    console.log(currentPage);
   };
 
   //적립된 이미지 리스트 가져오기
@@ -91,6 +92,13 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
       myImageList();
     }
   }, [myInfo, isMember, currentPage]);
+
+  useEffect(() => {
+    if (myInfo && isMember) {
+      const nickname = member.nickname;
+      myImageList(nickname);
+    }
+  }, [member]);
 
   //관리자면 전체 이미지 리스트 가져오기
   useEffect(() => {

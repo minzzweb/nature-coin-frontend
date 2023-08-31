@@ -11,7 +11,7 @@ const ModifyProfileContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { member, isLoading, myInfo } = useSelector(
+  const { member, isLoading, myInfo, nickname } = useSelector(
     ({ member, loading, auth }) => ({
       member: member.member,
       isLoading: loading[FETCH_MEMBER_ONE],
