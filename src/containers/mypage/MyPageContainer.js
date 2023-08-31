@@ -98,7 +98,7 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
       const nickname = member.nickname;
       myImageList(nickname);
     }
-  }, [member]);
+  }, [member, currentPage]);
 
   //관리자면 전체 이미지 리스트 가져오기
   useEffect(() => {
