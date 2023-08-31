@@ -52,22 +52,19 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  //유저정보 가져오기
+  useEffect(() => {
+    dispatch(fetchMember(userNo));
+  }, [dispatch, userNo]);
+
+  /*회원*/
   //내 이미지 가져오기 함수(유저)
   const myImageList = async (nickname) => {
-    const imageWriter = nickname;
-    console.log("imageWriter" + imageWriter);
-
-    dispatch(fetchMyImageList(imageWriter, currentPage));
+    dispatch(fetchMyImageList(nickname, currentPage));
     setShowImageList(true);
     setShowUserItemList(false);
   };
-
-  //전체 이미지 가져오기 함수(관리자)
-  const imageListAll = async () => {
-    dispatch(fetchMainImageList(currentPage));
-    setShowImageList(true);
-  };
-
+  /*회원*/
   //내가 산 기프티콘 가져오기 함
   const userItemList = async () => {
     dispatch(fetchUserItemList(currentPage));
@@ -76,29 +73,29 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
     setShowUserItemList(true);
   };
 
+  /*회원*/
+  useEffect(() => {
+    if (myInfo && isMember) {
+      if (member) {
+        const nickname = member.nickname;
+        myImageList(nickname);
+        console.log("nickname" + nickname);
+      }
+    }
+  }, [myInfo, isMember, member, currentPage]);
+
+  /*관리자*/
+  //전체 이미지 가져오기 함수(관리자)
+  const imageListAll = async () => {
+    dispatch(fetchMainImageList(currentPage));
+    setShowImageList(true);
+  };
+
+  /*전체*/
   //적립된 이미지 리스트 가져오기
   useEffect(() => {
     dispatch(fetchGrantedList());
   }, [dispatch]);
-
-  //유저정보 가져오기
-  useEffect(() => {
-    dispatch(fetchMember(userNo));
-  }, [dispatch, userNo]);
-
-  //유저면 내 이미지 리스트 가져오기
-  useEffect(() => {
-    if (myInfo && isMember) {
-      myImageList();
-    }
-  }, [myInfo, isMember, currentPage]);
-
-  useEffect(() => {
-    if (myInfo && isMember) {
-      const nickname = member.nickname;
-      myImageList(nickname);
-    }
-  }, [member, currentPage]);
 
   //관리자면 전체 이미지 리스트 가져오기
   useEffect(() => {
