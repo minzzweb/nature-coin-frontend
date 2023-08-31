@@ -145,6 +145,7 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
           count={count}
           currentPage={currentPage}
           handlePageChange={handlePageChange}
+          userNo={userNo}
         />
       )}
       {showUserItemList && isMember && (

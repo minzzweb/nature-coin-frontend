@@ -18,7 +18,7 @@ const HeaderContainer = ({ isAuthorized, myInfo, isAdmin, isMember }) => {
 
   useEffect(() => {
     dispatch(fetchUserCoin());
-    console.log("userCoin header!!!" + userCoin);
+    //console.log("userCoin header!!!" + userCoin);
   }, [userCoin]);
 
   //로그아웃 함수

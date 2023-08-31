@@ -19,6 +19,7 @@ const Image = ({
   count,
   currentPage,
   handlePageChange,
+  userNo,
 }) => {
   const pictureUrl = (imageId) => {
     return (
@@ -110,7 +111,7 @@ const Image = ({
                 <Link
                   to={
                     isMypage
-                      ? `/member/image/read/${image.imageId}?page=${currentPage}`
+                      ? `/member/image/${userNo}/read/${image.imageId}?page=${currentPage}`
                       : `/image/read/${image.imageId}?page=${currentPage}`
                   }
                 >

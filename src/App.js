@@ -49,7 +49,10 @@ function App() {
           path="/member/image/read/:imageId"
           element={<ImageReadContainer />}
         />
-
+        <Route
+          path="/member/image/:userNo/read/:imageId"
+          element={<ImageReadContainer />}
+        />
         {/*관리자*/}
         <Route path="/member/setup" element={<AdminSetupContainer />} />
 

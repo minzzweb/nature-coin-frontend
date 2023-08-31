@@ -17,6 +17,7 @@ const ImageRead = ({
   onGrantCoin,
   grantedImage,
   currentPage,
+  member,
 }) => {
   // 이미지 표시 URL 생성
   const pictureUrl = () => {
@@ -34,10 +35,9 @@ const ImageRead = ({
     );
   };
 
-  //게시글  소유자 확인
   let isOwn = false;
-  if (myInfo && image) {
-    if (myInfo.nickname === image.imageWriter) {
+  if (myInfo && member && image) {
+    if (member.nickname === image.imageWriter) {
       isOwn = true;
     }
   }

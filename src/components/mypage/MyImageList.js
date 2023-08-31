@@ -8,6 +8,7 @@ const MyImageList = ({
   count,
   currentPage,
   handlePageChange,
+  userNo,
 }) => {
   return (
     <Box sx={style.marginLayout}>
@@ -18,6 +19,7 @@ const MyImageList = ({
         count={count}
         currentPage={currentPage}
         handlePageChange={handlePageChange}
+        userNo={userNo}
       />
     </Box>
   );
