@@ -36,11 +36,10 @@ const AdminSetupContainer = () => {
         position: "top-center",
         autoClose: 1000,
       });
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
 
-      navigate("/signin");
+      setTimeout(() => {
+        navigate("/signin");
+      }, 2000);
     } catch (e) {
       toast.error(e.response.data, {
         position: "top-center",
@@ -51,18 +50,7 @@ const AdminSetupContainer = () => {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer position="top-right" autoClose={1000} />
       <AdminSetupForm
         onRegister={onRegister}
         handleCheckDuplicate={handleCheckDuplicate}
