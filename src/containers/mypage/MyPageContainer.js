@@ -60,7 +60,8 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
   /*회원*/
   //내 이미지 가져오기 함수(유저)
   const myImageList = async (nickname) => {
-    dispatch(fetchMyImageList(nickname, currentPage));
+    const usernickname = myInfo.nickname;
+    dispatch(fetchMyImageList(usernickname, currentPage));
     setShowImageList(true);
     setShowUserItemList(false);
   };
@@ -79,7 +80,7 @@ const MyPageContainer = ({ isAuthorized, isAdmin, isMember }) => {
       if (member) {
         const nickname = member.nickname;
         myImageList(nickname);
-        console.log("nickname" + nickname);
+        console.log(" myImageList nickname" + nickname);
       }
     }
   }, [myInfo, isMember, member, currentPage]);

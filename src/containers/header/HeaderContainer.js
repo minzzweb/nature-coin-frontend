@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Header from "../../components/headers/Header";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { getAuthorized, isAdmin, isMember } from "../../modules/selector"; //로그인 여부
-import { setAccessToken, setMyInfo } from "../../modules/auth";
+import { setAccessToken, setMyInfo, setUserCoin } from "../../modules/auth";
 import client from "../../lib/client";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -17,9 +17,10 @@ const HeaderContainer = ({ isAuthorized, myInfo, isAdmin, isMember }) => {
   }));
 
   useEffect(() => {
-    dispatch(fetchUserCoin());
-    //console.log("userCoin header!!!" + userCoin);
-  }, [userCoin]);
+    if (myInfo && isMember) {
+      dispatch(fetchUserCoin());
+    }
+  }, [myInfo, isMember, dispatch]);
 
   //로그아웃 함수
   const onLogout = () => {
@@ -30,6 +31,7 @@ const HeaderContainer = ({ isAuthorized, myInfo, isAdmin, isMember }) => {
 
     navigate("/");
   };
+  console.log("userCoin" + userCoin);
 
   return (
     <Header

@@ -18,7 +18,11 @@ const ItemListContainer = () => {
       alert(response.data);
       console.log("userCoin가져오기" + userCoin);
     } catch (e) {
-      alert(e.response.data);
+      if (e.response.status === 403) {
+        alert("접근 권한이 없습니다! 로그인해주세요!");
+      } else {
+        alert(e.response.data);
+      }
     }
   };
 
